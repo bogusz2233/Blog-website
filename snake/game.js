@@ -6,7 +6,7 @@ var CANVANS_WIDTH;
 var CANVANS_HEIGHT;
 
 // Do debugu:
-const LOG_KEY_PRESSED = true;
+const LOG_KEY_PRESSED = false;
 
 
 // opis strzałek
@@ -49,7 +49,8 @@ var gameTime = 0;                   //<< czas w sekundach jaki upłynął od poc
 var previousSystemTime = 0;         //<< ostatnia sekunda dla której czas zostal zmieniony
 var scores = 0;                     //<< punkty zdobyte przez gracza
 var keyPressedFlag = false;         //<< zmienna określająca czy przycisk zostal wcisniety i wymaga obslugi
-
+var gameOver = false;
+var gamePause = false;
 // Fruit param
 var fruitXpos = 0;
 var fruitYpos = 0;
@@ -142,20 +143,23 @@ function gameLogic() {
 
 //funkcja zarządzająca logiką ogona weza
 function gameLogicTail() {
-    if (tailArrayType.length < scores) {
-        addingNewTail();
+    if(!gamePause && !gameOver)
+    {
+        if (tailArrayType.length < scores) {
+            addingNewTail();
 
-    }
-
-    if (tailArrayType.length > 0 && countTimeFlag) {
-        // przesuniecie i pozbycie sie ostatniego elementu
-        if (tailArrayType.length == scores) {
-            tailArrayXPos.shift();
-            tailArrayYPos.shift();
-            tailArrayType.shift();
         }
 
-        addingNewTail();
+        if (tailArrayType.length > 0 && countTimeFlag) {
+            // przesuniecie i pozbycie sie ostatniego elementu
+            if (tailArrayType.length == scores) {
+                tailArrayXPos.shift();
+                tailArrayYPos.shift();
+                tailArrayType.shift();
+            }
+
+            addingNewTail();
+        }
     }
 }
 
@@ -226,37 +230,47 @@ function addingNewTail() {
     }
 }
 function gameLogicPlayerMove() {
-    // ruch gracza
-    if (playerDir == PLAYER_DIR_UP) {
-        playerYpos -= PLAYER_MOVE_STEP;
-        countTimeFlag = true;
+    if (!gameOver && !gamePause) {
+        // ruch gracza
+        if (playerDir == PLAYER_DIR_UP) {
+            playerYpos -= PLAYER_MOVE_STEP;
+            countTimeFlag = true;
+        }
+        else if (playerDir == PLAYER_DIR_DOWN) {
+            playerYpos += PLAYER_MOVE_STEP;
+            countTimeFlag = true;
+        }
+        else if (playerDir == PLAYER_DIR_LEFT) {
+            playerXpos -= PLAYER_MOVE_STEP;
+            countTimeFlag = true;
+        }
+        else if (playerDir == PLAYER_DIR_RIGTH) {
+            playerXpos += PLAYER_MOVE_STEP;
+            countTimeFlag = true;
+        }
+        else if (playerDir == PLATER_DIR_NONE) {
+            //Zatrzymanie gry 
+            countTimeFlag = false;
+        }
     }
-    else if (playerDir == PLAYER_DIR_DOWN) {
-        playerYpos += PLAYER_MOVE_STEP;
-        countTimeFlag = true;
-    }
-    else if (playerDir == PLAYER_DIR_LEFT) {
-        playerXpos -= PLAYER_MOVE_STEP;
-        countTimeFlag = true;
-    }
-    else if (playerDir == PLAYER_DIR_RIGTH) {
-        playerXpos += PLAYER_MOVE_STEP;
-        countTimeFlag = true;
-    }
-    else if (playerDir == PLATER_DIR_NONE) {
-        //Zatrzymanie gry 
-        countTimeFlag = false;
-    }
-
     // ograniczenie ruchu gracza:
     if (playerXpos < 0) playerXpos = CANVANS_WIDTH - PLAYER_SIZE;
     else if (playerXpos > CANVANS_WIDTH - PLAYER_SIZE) playerXpos = 0;
     else if (playerYpos < 0) playerYpos = CANVANS_HEIGHT - PLAYER_SIZE;
     else if (playerYpos > CANVANS_HEIGHT - PLAYER_SIZE) playerYpos = 0;
 
-    if(keyPressedFlag == true) keyPressedFlag = false;
+    if (keyPressedFlag == true) keyPressedFlag = false;
+
+    // sprawdzenie czy nastąpił gameover:
+    gameOver = isItGameOver();
 }
 
+function isItGameOver() {
+    for (var i = 0; i < tailArrayType.length; i++) {
+        if (tailArrayXPos[i] == playerXpos && tailArrayYPos[i] == playerYpos) return true;
+    }
+    return false;
+}
 function gameLogicScoresAndTime() {
     // sprawdzenie czy owoc zostal osiagniety:
     if (playerXpos == fruitXpos && playerYpos == fruitYpos) {
@@ -265,7 +279,7 @@ function gameLogicScoresAndTime() {
     }
     //zliczanie czasu:
     var currentSystemTime = new Date().getSeconds();
-    if (countTimeFlag && previousSystemTime != currentSystemTime) {
+    if (!gamePause && !gameOver && countTimeFlag && previousSystemTime != currentSystemTime) {
         previousSystemTime = currentSystemTime;
         gameTime++;
     }
@@ -276,7 +290,7 @@ function gameLogicScoresAndTime() {
 function randomNewFruitPos() {
     var randomMaxXValue = CANVANS_WIDTH / PLAYER_SIZE;
     var randomMaxYValue = CANVANS_HEIGHT / PLAYER_SIZE;
-
+    var countRandTime = 1;
     //losowanie liczby
     var xRandomValue = Math.floor(Math.random() * randomMaxXValue);
     var yRandomValue = Math.floor(Math.random() * randomMaxYValue);
@@ -284,50 +298,67 @@ function randomNewFruitPos() {
     // ustawienie nowej pozycji owocu na ekranie
     fruitXpos = xRandomValue * PLAYER_SIZE;
     fruitYpos = yRandomValue * PLAYER_SIZE;
+    while (isItFruitRandomOnSnake(fruitXpos, fruitYpos)) {
+        //losowanie liczby
+        xRandomValue = Math.floor(Math.random() * randomMaxXValue);
+        yRandomValue = Math.floor(Math.random() * randomMaxYValue);
 
+        // ustawienie nowej pozycji owocu na ekranie
+        fruitXpos = xRandomValue * PLAYER_SIZE;
+        fruitYpos = yRandomValue * PLAYER_SIZE;
+        countRandTime++;
+    }
     // print fruit pos
-    var textToLog = "Pozycja owocu: (" + fruitXpos + ", " + fruitYpos + ")"
+    var textToLog = "Pozycja owocu: (" + fruitXpos + ", " + fruitYpos + "), losowano: " + countRandTime + " razy";
     console.log(textToLog);
 }
+/*
+*   Sprawdzenie czy owoc nie wypad na jakies czesci weza
+*   argRandomXFruitPos, argRandomYFruitPos - wylosowane pozycje owocu
+*/
+function isItFruitRandomOnSnake(argRandomXFruitPos, argRandomYFruitPos) {
+    if (argRandomXFruitPos == playerXpos && argRandomYFruitPos == playerYpos) return true;
+    else {
+        for (var i = 0; i < tailArrayType.length; i++) {
+            if (tailArrayXPos[i] == argRandomXFruitPos && tailArrayYPos[i] == argRandomYFruitPos) return true;
+        }
 
+        return false; // po sprawdzeniu wszystkich części węża żadna nie nachodzi na owoc
+    }
+}
 //**********************************  To co sie renderuje  **********************************
 function gameDraw() {
     backgroundReset();
 
     //rysowanie owocu:
     contex.drawImage(fruitImg, fruitXpos, fruitYpos);
-    var preLastElementIndex = tailArrayType.length -2;  // drugi od końca element
+    var preLastElementIndex = tailArrayType.length - 2;  // drugi od końca element
     //rysowanie ogona
     for (var i = 0; i < tailArrayType.length; i++) {
-        if(i == 0)
-        {
-            if((tailArrayType.length - 1 == 0 && playerDir == PLAYER_DIR_UP)
-            || tailArrayType[1] == TAIL_TYPE_UP 
-            || tailArrayType[1] == TAIL_TYPE_UP_LEFT
-            || tailArrayType[1] == TAIL_TYPE_UP_RIGTH)
-            {
-                contex.drawImage(tail7, tailArrayXPos[i], tailArrayYPos[i]); 
+        if (i == 0) {
+            if ((tailArrayType.length - 1 == 0 && playerDir == PLAYER_DIR_UP)
+                || tailArrayType[1] == TAIL_TYPE_UP
+                || tailArrayType[1] == TAIL_TYPE_UP_LEFT
+                || tailArrayType[1] == TAIL_TYPE_UP_RIGTH) {
+                contex.drawImage(tail7, tailArrayXPos[i], tailArrayYPos[i]);
             }
-            else if((tailArrayType.length - 1 == 0 && playerDir == PLAYER_DIR_RIGTH)
-            || tailArrayType[1] == TAIL_TYPE_RIGTH
-            || tailArrayType[1] == TAIL_TYPE_RIGTH_UP
-            || tailArrayType[1] == TAIL_TYPE_RIGTH_DOWN)
-            {
-                contex.drawImage(tail8, tailArrayXPos[i], tailArrayYPos[i]); 
+            else if ((tailArrayType.length - 1 == 0 && playerDir == PLAYER_DIR_RIGTH)
+                || tailArrayType[1] == TAIL_TYPE_RIGTH
+                || tailArrayType[1] == TAIL_TYPE_RIGTH_UP
+                || tailArrayType[1] == TAIL_TYPE_RIGTH_DOWN) {
+                contex.drawImage(tail8, tailArrayXPos[i], tailArrayYPos[i]);
             }
-            else if((tailArrayType.length - 1 == 0 && playerDir == PLAYER_DIR_DOWN)
-            || tailArrayType[1] == TAIL_TYPE_DOWN 
-            || tailArrayType[1] == TAIL_TYPE_DOWN_LEFT
-            || tailArrayType[1] == TAIL_TYPE_DOWN_RIGTH)
-            {
-                contex.drawImage(tail9, tailArrayXPos[i], tailArrayYPos[i]); 
+            else if ((tailArrayType.length - 1 == 0 && playerDir == PLAYER_DIR_DOWN)
+                || tailArrayType[1] == TAIL_TYPE_DOWN
+                || tailArrayType[1] == TAIL_TYPE_DOWN_LEFT
+                || tailArrayType[1] == TAIL_TYPE_DOWN_RIGTH) {
+                contex.drawImage(tail9, tailArrayXPos[i], tailArrayYPos[i]);
             }
-            else if((tailArrayType.length - 1 == 0 && playerDir == PLAYER_DIR_LEFT)
-            || tailArrayType[1] == TAIL_TYPE_LEFT
-            || tailArrayType[1] == TAIL_TYPE_LEFT_UP
-            || tailArrayType[1] == TAIL_TYPE_LEFT_DOWN)
-            {
-                contex.drawImage(tail10, tailArrayXPos[i], tailArrayYPos[i]); 
+            else if ((tailArrayType.length - 1 == 0 && playerDir == PLAYER_DIR_LEFT)
+                || tailArrayType[1] == TAIL_TYPE_LEFT
+                || tailArrayType[1] == TAIL_TYPE_LEFT_UP
+                || tailArrayType[1] == TAIL_TYPE_LEFT_DOWN) {
+                contex.drawImage(tail10, tailArrayXPos[i], tailArrayYPos[i]);
             }
         }
         else if (tailArrayType[i] == TAIL_TYPE_LEFT || tailArrayType[i] == TAIL_TYPE_RIGTH) {
@@ -377,30 +408,53 @@ function gameDraw() {
     else {
         contex.drawImage(HeadImgRight, playerXpos, playerYpos);
     }
-}
 
+    if(gameOver)
+    {
+        showGameOverWindow();
+    }
+}
+function showGameOverWindow()
+{
+    var xSizeWindow = 400;
+    var ySizeWindow = 250;
+
+    contex.fillStyle = "#ffffff64";
+    contex.fillRect(CANVANS_WIDTH/2 - xSizeWindow/2 -3, CANVANS_HEIGHT/2 - ySizeWindow/2 -3, xSizeWindow+6,ySizeWindow+6);
+    contex.fillStyle = "#5e747764";
+    contex.fillRect(CANVANS_WIDTH/2 - xSizeWindow/2, CANVANS_HEIGHT/2 - ySizeWindow/2, xSizeWindow,ySizeWindow);
+    
+    contex.fillStyle = "#af5b5b";
+    contex.font = "normal normal bold 60px Courier New";
+    contex.fillText("GAME OVER", CANVANS_WIDTH/2 - 165, CANVANS_HEIGHT/2 - 20); 
+
+    contex.font = "25px Courier New";
+    contex.fillText("Wcisnij \"R\", żeby zacząć", CANVANS_WIDTH/2 - 180, CANVANS_HEIGHT/2 + 30); 
+    contex.fillText(" gre od nowa!", CANVANS_WIDTH/2 - 100, CANVANS_HEIGHT/2 + 60); 
+}
 //**********************************  Obsługa przycisków  **********************************
 function keyPressFunction(e) {
     var keyPressed = e.keyCode | e.which;
     if (!keyPressedFlag) {
-        if (keyPressed == D_KEY || keyPressed == D_KEY_BIG && !(scores > 0 && playerDir == PLAYER_DIR_LEFT)) {
+        if (!gameOver && !gamePause && keyPressed == D_KEY || keyPressed == D_KEY_BIG && !(scores > 0 && playerDir == PLAYER_DIR_LEFT)) {
             playerDir = PLAYER_DIR_RIGTH;
             keyPressedFlag = true;
         }
-        else if (keyPressed == A_KEY || keyPressed == A_KEY_BIG && !(scores > 0 && playerDir == PLAYER_DIR_RIGTH)) {
+        else if (!gameOver && !gamePause && keyPressed == A_KEY || keyPressed == A_KEY_BIG && !(scores > 0 && playerDir == PLAYER_DIR_RIGTH)) {
             playerDir = PLAYER_DIR_LEFT;
             keyPressedFlag = true;
         }
-        else if (keyPressed == W_KEY || keyPressed == W_KEY_BIG && !(scores > 0 && playerDir == PLAYER_DIR_DOWN)) {
+        else if (!gameOver && !gamePause && keyPressed == W_KEY || keyPressed == W_KEY_BIG && !(scores > 0 && playerDir == PLAYER_DIR_DOWN)) {
             playerDir = PLAYER_DIR_UP;
             keyPressedFlag = true;
         }
-        else if (keyPressed == S_KEY || keyPressed == S_KEY_BIG && !(scores > 0 && playerDir == PLAYER_DIR_UP)) {
+        else if (!gameOver && !gamePause && keyPressed == S_KEY || keyPressed == S_KEY_BIG && !(scores > 0 && playerDir == PLAYER_DIR_UP)) {
             playerDir = PLAYER_DIR_DOWN;
             keyPressedFlag = true;
         }
         else if (keyPressed == SPACE) {
-            playerDir = PLATER_DIR_NONE;
+            if(gamePause) gamePause = false;
+            else gamePause = true;
         }
         else if (keyPressed == R_KEY || keyPressed == R_KEY_BIG) {
             // zresetowanie gry(!)
