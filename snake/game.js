@@ -138,6 +138,7 @@ function gameLoop() {
 function gameLogic() {
     gameLogicTail();
     gameLogicPlayerMove();
+    keyPressedFlag = false;
     gameLogicScoresAndTime();
 }
 
@@ -258,8 +259,6 @@ function gameLogicPlayerMove() {
     else if (playerXpos > CANVANS_WIDTH - PLAYER_SIZE) playerXpos = 0;
     else if (playerYpos < 0) playerYpos = CANVANS_HEIGHT - PLAYER_SIZE;
     else if (playerYpos > CANVANS_HEIGHT - PLAYER_SIZE) playerYpos = 0;
-
-    if (keyPressedFlag == true) keyPressedFlag = false;
 
     // sprawdzenie czy nastąpił gameover:
     gameOver = isItGameOver();

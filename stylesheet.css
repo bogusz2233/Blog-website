@@ -115,10 +115,7 @@ h2
     transition: 0.6s ease;
 }
 
-.dataBlock:hover img
-{
-  filter: blur(4px);
-}
+
 
 /****************   Wyjeżdzający napis na zdjęcie  ***************************************/
 .overlay {
