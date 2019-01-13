@@ -97,7 +97,7 @@ var tail9 = new Image(40, 40);
 var tail10 = new Image(40, 40);
 
 // funkcje do przypiecia
-setInterval(gameLoop, 200);
+setInterval(gameLoop, 400);
 
 //funcja wywolywana przy starcie aplikacji
 window.onload = function setupScreen() {
