@@ -1,5 +1,6 @@
 ﻿// Backend server const:
 const SERVER_CONTETN_URL = "https://bogusz-blog.herokuapp.com/HomePageData";
+const SERVER_URL = "https://bogusz-blog.herokuapp.com";
 const CONTENT_COUNT_QUERY = "askForNumber"; // true/false
 const CONTENT_NUM_QUERY = "contentNumber";  // 1,2,3 ...
 
@@ -66,9 +67,20 @@ var addNewPost = (argTitle, argOverloopText, argImgSrc, argImgBackround, argText
     overLoop.appendChild(overLoopText);
 
     //img
-    dataBlockImg.src = argImgSrc;
+    console.log(argImgSrc);
+    if(argImgSrc === undefined)
+    {
+        console.log(`${SERVER_CONTETN_URL}/noimage.jpg`);
+        dataBlockImg.src = `${SERVER_CONTETN_URL}/noimage.jpg`;
+        dataBlockImg.style.background = "#4f5051";
+    }
+    else
+    {
+        dataBlockImg.src = `${SERVER_URL}/${argImgSrc}`;
+        dataBlockImg.style.background = argImgBackround;
+    }
     dataBlockImg.onerror = function () { onImageError(dataBlockImg) };
-    dataBlockImg.style.background = argImgBackround;
+    
 
     //desc 
     if (argTextDesc != undefined) dataBlockDesc.textContent = argTextDesc;
@@ -79,7 +91,10 @@ var addNewPost = (argTitle, argOverloopText, argImgSrc, argImgBackround, argText
     dataBlockDesc.style.whiteSpace = "pre-wrap";
 
     //dodanie linku:
-    dataBlock.onclick = function () { location.href = argLinkToPost; };
+    dataBlock.onclick = () => { 
+        if(argLinkToPost != undefined)
+        location.href = argLinkToPost; 
+    };
 
     // dodanie stworzonego bloku do kontenera
     document.getElementById("contentContainer").append(dataBlock); // dodaje dziecko na początku, tak że najwyżej wyświetlany jest ostatni
@@ -131,7 +146,7 @@ var createContet = (argWindowNO, argWindowCount,resolve,reject) =>{
     xmlhttp.open("GET", url, true);
     xmlhttp.onload = () => {
         let jsonResponse = JSON.parse(xmlhttp.responseText);
-        addNewPost(jsonResponse.body.title, jsonResponse.body.secondTitle, "img/noimage.jpg", "#000000", jsonResponse.body.desc);
+        addNewPost(jsonResponse.body.title, jsonResponse.body.secondTitle, jsonResponse.body.imgScr, jsonResponse.body.bckImgColor, jsonResponse.body.desc, jsonResponse.body.link);
         if(argWindowNO == argWindowCount -1)
         {
             resolve(console.log("ALL loaded!"));
