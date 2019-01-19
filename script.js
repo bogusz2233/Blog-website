@@ -97,7 +97,7 @@ var addNewPost = (argTitle, argOverloopText, argImgSrc, argImgBackround, argText
     };
 
     // dodanie stworzonego bloku do kontenera
-    document.getElementById("contentContainer").append(dataBlock); // dodaje dziecko na początku, tak że najwyżej wyświetlany jest ostatni
+    document.getElementById("contentContainer").prepend(dataBlock); 
 };
 
 // funkcja wywowyłana podczas błedu

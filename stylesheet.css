@@ -29,7 +29,10 @@ h2
 .topNavbarContainer
 {
     height: 100%;
-    width: 200mm;
+    max-width: 900px;
+    min-width: 250px;
+    display: flex;
+    width: 90vw;
     margin-left: auto;
     margin-right: auto;
 }
@@ -37,15 +40,15 @@ h2
 .topNavbarContainer .logo
 {
     position: relative;
-    width: 19mm;
-    margin-top: 0.5mm;
-    font-size: 10mm;
+    width: 70px;
+    margin-top: 1px;
+    font-size: 2em;
     color: #ffffff;
     background: #006fff;
     font-weight: bold;
     text-align: center;
-    line-height: 18mm;
-    border-radius: 50mm;
+    line-height: 70px;
+    border-radius: 100px;
     float: left;
     transition: .5s ease;
 }
@@ -54,21 +57,20 @@ h2
 {
     cursor: pointer;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
-    font-size: 12mm;
-    line-height: 20mm;
-    width: 20mm;
+    font-size: 2.3em;
+    line-height: 72px;
+    width: 75px;
 }
 .topNavbarContainer .desc
 {
-    float: right;
-    width: 80%;
-    height: 100%;
     text-align: justify;
-    font-size: 15px;
-    vertical-align: middle;
-    margin-top: 23px;
+    font-size: 0.7em;
+    letter-spacing: 0.01em;
     font-style: italic;
     color: #707070;
+    flex-grow: 1;
+    align-self: center;
+    margin-left: 10px;
 }
 
 /****************   wyswieltane kafelki  ***************************************/

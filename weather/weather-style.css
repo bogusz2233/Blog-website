@@ -3,12 +3,15 @@
     padding: 0;
     font-family: 'Courier New', Courier, monospace;
 }
+body{
+    align-content: center;
+}
 .weatherContainer{
     background-color: #ebebeb;
     margin-top: 100px;
     min-height: 500px;
     width: 90vw;
-    min-width: 200px;
+    min-width: 300px;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
@@ -26,6 +29,7 @@
 
 #barSearch{
     display: flex;
+    width: 100%;
     margin: auto;
     margin-top: 10px;
     height: 45px;
@@ -35,12 +39,14 @@
     font-size: 2.4em;
     color: #ebebeb;
     font-weight: 600;
-    
+    flex-grow: 1;
+    flex-shrink: 1;
 }
 #placeToSearch{
+    flex-grow: 2;
+    flex-shrink: 2;
     height: 100%;
     align-self: center;
-    flex-grow: 1;
     font-size: 1.2em;
     padding-left: 10px;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 3px 0 rgba(0, 0, 0, 0.19);
@@ -48,7 +54,8 @@
 .searchBlock{
     background-color: #4392aa;
     height: 110%;
-    width: 48px;
+    flex-basis: 48px;
+    flex-grow: 0;
     align-self: center;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 3px 0 rgba(0, 0, 0, 0.19);
     transition: .5s ease;
@@ -81,7 +88,7 @@
     background-color: #ebebeb;
 }
 #currentWeatherContainer p:nth-child(1){
-    width: 130px;
+    width: 7.5em;
     font-weight: bold;
    
 }
