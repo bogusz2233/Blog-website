@@ -1,0 +1,87 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+.weatherContainer{
+    background-color: #ebebeb;
+    margin-top: 100px;
+    min-height: 500px;
+    width: 90vw;
+    min-width: 200px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+}
+
+#weatherBeltContainer{
+    background-color: #2d5992;
+    margin: auto;
+    align-content: center;
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+#barSearch{
+    display: flex;
+    margin: auto;
+    margin-top: 10px;
+    height: 45px;
+}
+#placeId{
+    align-self: center;
+    font-size: 2.4em;
+    color: #ebebeb;
+    font-weight: 600;
+    
+}
+#placeToSearch{
+    height: 100%;
+    align-self: center;
+    flex-grow: 1;
+    font-size: 1.2em;
+    padding-left: 10px;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 3px 0 rgba(0, 0, 0, 0.19);
+}
+.searchBlock{
+    background-color: #4392aa;
+    height: 110%;
+    width: 48px;
+    align-self: center;
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 3px 3px 0 rgba(0, 0, 0, 0.19);
+    transition: .5s ease;
+    box-sizing: border-box;
+    display: flex;
+}
+.searchBlock img{
+    width: 65%;
+    margin: auto;
+}
+.searchBlock:hover{
+    cursor: pointer;
+    background-color: #53b1ce;
+}
+#currentWeatherContainer{
+    box-sizing: border-box;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 15px;
+    min-height: 200px;
+    border:2px solid #afafaf;
+    display: flex;
+}
+#currentWeatherContainer p{
+    padding: 3px;
+    margin-left: 10px;
+    flex-wrap: wrap;
+    position: relative;
+    top: -14px;
+    background-color: #ebebeb;
+}
+#currentWeatherContainer p:nth-child(1){
+    width: 130px;
+    font-weight: bold;
+   
+}

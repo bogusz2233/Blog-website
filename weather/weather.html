@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pl">
+
+<head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Snake game</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" type="text/css" href="../stylesheet.css?12">
+        <link rel="stylesheet" type="text/css" href="weather-style.css">
+        <script src="../script.js?14"></script>
+</head>
+
+<body>
+
+    <!--------------------------------  Górna belka ------------------------------------------------------------>
+    <div class="topNavbar">
+        <div class="topNavbarContainer">
+            <div class="logo" onclick="goToMain(0)">ŁB</div>
+            <div class="desc">Strona poświecona moim projektom z elektroniki, programowania i fizyki...</div>
+        </div>
+    </div>
+
+    <div class="weatherContainer">
+        <div id ="weatherBeltContainer">
+            <div id="placeId">Białytok</div>
+            <div id="barSearch">
+                    <input type="text" id="placeToSearch" placeholder="Szukaj">
+                    <div class="searchBlock"><img src="../img/search.png"></div>
+                    <div class="searchBlock" style="margin-left: 4px;"><img src="../img/location_search.png"></div> 
+            </div>
+        </div>
+        <div id="currentWeatherContainer">
+                <p>Pogoda teraz</p>
+            </div>
+    </div>
+
+</body>
+
+</html>
