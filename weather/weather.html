@@ -7,6 +7,7 @@
     <title>Snake game</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../stylesheet.css?14">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <link rel="stylesheet" type="text/css" href="weather-style.css?5">
     <script src="../script.js?15"></script>
     <script src="weather.js?1"></script>
@@ -20,21 +21,27 @@
         </div>
     </div>
     <!--------------------------------  Górna belka ------------------------------------------------------------>
-    <div class="weatherContainer">
-        <div id="weatherBeltContainer">
-            <div id="placeId">Białystok</div>
-            <div id="barSearch">
-                <input type="text" id="placeToSearch" placeholder="Szukaj" size="10" onkeypress="keyPressedText(event)">
-                <div class="searchBlock" onclick="getNewPlaceWeather()" ><img src="../img/search.png"></div>
-                <div class="searchBlock" style="margin-left: 4px; margin-right: 4px;"><img src="../img/location_search.png"></div>
+    <div id="conetnConteiner">
+        <div class="weatherContainer">
+            <div id="weatherBeltContainer">
+                <div id="placeId">Białystok</div>
+                <div id="barSearch">
+                    <input type="text" id="placeToSearch" placeholder="Szukaj" size="10" onkeypress="keyPressedText(event)">
+                    <div class="searchBlock" onclick="getNewPlaceWeather()"><img src="../img/search.png"></div>
+                    <div class="searchBlock" style="margin-left: 4px; margin-right: 4px;"><img src="../img/location_search.png"></div>
+                </div>
             </div>
-        </div>
-        <p style=" width: 8em; font-weight: bold; display: flex;">Pogoda teraz</p>
-        <div id="currentWeatherContainer">
-            
-        </div>
-    </div>
+            <p style=" width: 8em; font-weight: bold; display: flex;">Pogoda teraz</p>
+            <div id="currentWeatherContainer">
 
+            </div>
+
+        </div>
+        <h1>Temperatura godzinna</h1>
+        <canvas id="weatherChart" aria-label="Hello ARIA World">
+            <script>printWeatherChartTest()</script>
+        </canvas>
+    </div>
 </body>
 
 </html>
