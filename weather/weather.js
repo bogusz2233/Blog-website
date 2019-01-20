@@ -115,11 +115,11 @@ var getNewPlaceWeather = () =>{
     if(location.length == 0){
         placeToSearch.placeholder = "Wpisz nazwe miejscowości"
     }else{
-        var myNode = document.getElementById("currentWeatherContainer");
-        while (myNode.firstChild) {
-            myNode.removeChild(myNode.firstChild);
-        }
         getCurrentWeatherFromServer(location).then( (result) =>{
+            var myNode = document.getElementById("currentWeatherContainer");
+            while (myNode.firstChild) {
+                myNode.removeChild(myNode.firstChild);
+            }
             setActualWeather(result);
             setApparentTemp(result);
             setPrecip(result);
