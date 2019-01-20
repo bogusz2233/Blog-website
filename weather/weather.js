@@ -3,14 +3,21 @@ const SERVER_QUERY_GET = "get";
 const SERVER_QUERY_PLACE = 'place';
 
 window.onload = () =>{
-    getCurrentWeatherFromServer("Bogusz Stare 26").then( (result) =>{
+    getWeatherFromServer("Bogusz Stare 26","currently").then( (result) =>{
         setActualWeather(result);
         setApparentTemp(result);
         setPrecip(result);
-    }).catch( (errorMes) =>{
+        return getWeatherFromServer("Bogusz Stare 26","hourly");
+    }).then( (result) =>{
+        printWeatherChart(result.hourly);
+        return getWeatherFromServer("Bogusz Stare 26","daily");
+    }).then( (result) =>{
+        printWeatherDailyChart(result.daily);
+    })
+    .catch( (errorMes) =>{
         JsonDataWeather = {};
     });
-    
+
 }
 
 var setActualWeather = (argJsonDataWeather) =>
@@ -85,10 +92,10 @@ var createNewCurrentWeatherContainer = () =>
 
     return celsiusDiv;
 }
-var getCurrentWeatherFromServer = (argPlace) =>{
+var getWeatherFromServer = (argPlace, argGetType) =>{
     return new Promise((resolve, reject) => {
         const xmlhttp = new XMLHttpRequest();
-        let url = `${SERVER_WEATHER_URL}?${SERVER_QUERY_GET}=currently&${SERVER_QUERY_PLACE}=${argPlace}`;
+        let url = `${SERVER_WEATHER_URL}?${SERVER_QUERY_GET}=${argGetType}&${SERVER_QUERY_PLACE}=${argPlace}`;
 
         xmlhttp.open("GET", url, true);
         xmlhttp.onload = () => {
@@ -101,21 +108,13 @@ var getCurrentWeatherFromServer = (argPlace) =>{
 }
 
 var getNewPlaceWeather = () =>{
-    // var JsonDataWeather;
-    // getCurrentWeatherFromServer("Bogusz Stare 26").then( (result) =>{
-    //     setActualWeather(result);
-    //     setApparentTemp(result);
-    //     setPrecip(result);
-    // }).catch( (errorMes) =>{
-    //     JsonDataWeather = {};
-    // });
     var placeToSearch = document.getElementById("placeToSearch");
     var location = placeToSearch.value;
 
     if(location.length == 0){
         placeToSearch.placeholder = "Wpisz nazwe miejscowości"
     }else{
-        getCurrentWeatherFromServer(location).then( (result) =>{
+        getWeatherFromServer(location,"currently").then( (result) =>{
             var myNode = document.getElementById("currentWeatherContainer");
             while (myNode.firstChild) {
                 myNode.removeChild(myNode.firstChild);
@@ -124,11 +123,17 @@ var getNewPlaceWeather = () =>{
             setApparentTemp(result);
             setPrecip(result);
             document.getElementById("placeId").textContent = result.formatted_address;
-        }).catch( (errorMes) =>{
+            return getWeatherFromServer(location, "hourly");
+        }).then( (result) =>{
+            printWeatherChart(result.hourly);
+            return getWeatherFromServer(location,"daily");
+        }).then( (result) =>{
+            printWeatherDailyChart(result.daily);
+        })
+        .catch( (errorMes) =>{
             JsonDataWeather = {};
         });
     }
-    console.log("text :" + location.length);
 };
 
 var keyPressedText = (event) => {
@@ -158,6 +163,112 @@ var printWeatherChartTest = () => {
                 borderColor: [
                     'rgba(255,99,132,1)',
                 
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+}
+
+var printWeatherChart= (argResultHourly) =>{
+    var xValue, yValue;
+    xValue = new Array();
+    yValue = new Array();
+    for(var i=0; i<argResultHourly.length; i++)
+    {
+        yValue.push(converFahrToCels(argResultHourly[i].temperature));
+    }
+    for(var i=0; i<argResultHourly.length; i++)
+    {
+        let timeResult = new Date(argResultHourly[i].time * 1000);
+        let timeString = `${timeResult.getHours()}:${timeResult.getMinutes()}0`;
+        console.log(timeString);
+        xValue.push(timeString);
+    }
+    var charContex = document.getElementById("hourlyChart").getContext('2d');
+    var myChart = new Chart(charContex, {
+        type: 'line',
+        data: {
+            labels: xValue,
+            datasets: [{
+                label: 'Temperatura',
+                data: yValue,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+}
+
+var printWeatherDailyChart= (argResultdaily) =>{
+    var xValue, maxValue, minValue;
+    xValue = new Array();
+    maxValue = new Array();
+    minValue = new Array();
+    var weekday = new Array(7);
+    weekday[0] =  "Niedziela";
+    weekday[1] = "Poniedziałek";
+    weekday[2] = "Wtorek";
+    weekday[3] = "Środa";
+    weekday[4] = "Czwartek";
+    weekday[5] = "Piątek";
+    weekday[6] = "Sobota";
+    for(var i=0; i<argResultdaily.length; i++)
+    {
+        maxValue.push(converFahrToCels(argResultdaily[i].temperatureHigh));
+        minValue.push(converFahrToCels(argResultdaily[i].temperatureLow))
+        let timeResult = new Date(argResultdaily[i].time * 1000).getDay();
+        xValue.push(weekday[timeResult]);
+    }
+    var charContex = document.getElementById("dailyChart").getContext('2d');
+    var myChart = new Chart(charContex, {
+        type: 'line',
+        data: {
+            labels: xValue,
+            datasets: [{
+                label: 'Temperatura maksymalna',
+                data: maxValue,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                
+                ],
+                borderWidth: 1
+            },
+            {
+                label: 'Temperatura Minimalna',
+                data: minValue,
+                backgroundColor: [
+                    'rgba(54, 162, 235, 0.2)',
+                ],
+                borderColor: [
+                    'rgba(54, 162, 235, 1)',
                 ],
                 borderWidth: 1
             }]
