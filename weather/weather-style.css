@@ -9,7 +9,8 @@ body{
 .weatherContainer{
     background-color: #ebebeb;
     margin-top: 100px;
-    min-height: 500px;
+    min-height: 300px;
+    padding-bottom: 5px;
     width: 90vw;
     min-width: 300px;
     max-width: 800px;
@@ -36,7 +37,8 @@ body{
 }
 #placeId{
     align-self: center;
-    font-size: 2.4em;
+    font-size: 2em;
+    letter-spacing: -0.05em;
     color: #ebebeb;
     font-weight: 600;
     flex-grow: 1;
@@ -74,21 +76,42 @@ body{
     box-sizing: border-box;
     margin-left: 10px;
     margin-right: 10px;
-    margin-top: 15px;
+    margin-bottom: 20px;
     min-height: 200px;
     border:2px solid #afafaf;
     display: flex;
 }
-#currentWeatherContainer p{
+.weatherContainer p{
     padding: 3px;
-    margin-left: 10px;
-    flex-wrap: wrap;
+    margin-left: 30px;
     position: relative;
-    top: -14px;
+    top: 15px;
     background-color: #ebebeb;
 }
-#currentWeatherContainer p:nth-child(1){
-    width: 7.5em;
-    font-weight: bold;
-   
+
+.celsiusView{
+    margin: 5px;
+    flex-grow: 1;
+    box-sizing: border-box;
+    width: 20%;
+    flex-wrap: wrap;
+    color: #666666;
+    font-size: calc(1em + 1vw);
+    letter-spacing: -0.1em;
+    align-self: center;
+    text-align: center;
+    line-height: 1em;
+    
+}
+.celsiusView:nth-child(3), .celsiusView:nth-child(2){
+    flex-grow: 3;
+}
+.precipText{
+    font-size: calc(0.4em + 0.5vw);
+    line-height: 1em;
+    text-align: justify;
+}
+.celsiusText{
+    margin-bottom: 5px;
+    font-weight: bolder;
 }

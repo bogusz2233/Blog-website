@@ -6,9 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Snake game</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="../stylesheet.css?13">
-    <link rel="stylesheet" type="text/css" href="weather-style.css?4">
-    <script src="../script.js?14"></script>
+    <link rel="stylesheet" type="text/css" href="../stylesheet.css?14">
+    <link rel="stylesheet" type="text/css" href="weather-style.css?5">
+    <script src="../script.js?15"></script>
+    <script src="weather.js?1"></script>
 </head>
 
 <body>
@@ -21,15 +22,16 @@
     <!--------------------------------  Górna belka ------------------------------------------------------------>
     <div class="weatherContainer">
         <div id="weatherBeltContainer">
-            <div id="placeId">Białytok</div>
+            <div id="placeId">Białystok</div>
             <div id="barSearch">
-                <input type="text" id="placeToSearch" placeholder="Szukaj" size="10">
-                <div class="searchBlock"><img src="../img/search.png"></div>
+                <input type="text" id="placeToSearch" placeholder="Szukaj" size="10" onkeypress="keyPressedText(event)">
+                <div class="searchBlock" onclick="getNewPlaceWeather()" ><img src="../img/search.png"></div>
                 <div class="searchBlock" style="margin-left: 4px; margin-right: 4px;"><img src="../img/location_search.png"></div>
             </div>
         </div>
+        <p style=" width: 8em; font-weight: bold; display: flex;">Pogoda teraz</p>
         <div id="currentWeatherContainer">
-            <p>Pogoda teraz</p>
+            
         </div>
     </div>
 
