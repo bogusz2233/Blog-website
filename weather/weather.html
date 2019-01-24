@@ -8,9 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../stylesheet.css?15">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="weather-style.css?8">
-    <script src="../script.js?16"></script>
-    <script src="weather.js?3"></script>
+    <link rel="stylesheet" type="text/css" href="weather-style.css?9">
+    <script src="../script.js?17"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="weather.js?4"></script>
 </head>
 
 <body>
@@ -41,6 +42,9 @@
         <canvas class="weatherChart" id="hourlyChart"></canvas>
         <h1>Temperatura dzienna</h1>
         <canvas class="weatherChart" id="dailyChart"></canvas>
+        <script>
+        weatherScrollAnim();
+        </script>
     </div>
 </body>
 

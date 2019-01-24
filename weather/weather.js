@@ -284,3 +284,37 @@ var printWeatherDailyChart= (argResultdaily) =>{
         }
     });
 }
+
+var weatherScrollAnim = () => {
+    ScrollReveal().reveal('.weatherContainer, #dailyChart', {
+        delay: 300,
+        duration: 2500,
+        viewFactor: 0.4,
+        reset: true,
+        distance: '1000px',
+        origin: 'left',
+        easing: 'cubic-bezier(0.5, 0, 0, 1)',
+        opacity: 0
+    });
+    ScrollReveal().reveal('#hourlyChart', {
+        delay: 300,
+        duration: 2500,
+        viewFactor: 0.4,
+        reset: true,
+        distance: '1000px',
+        origin: 'rigth',
+        easing: 'cubic-bezier(0.5, 0, 0, 1)',
+        opacity: 0
+    });
+
+    ScrollReveal().reveal('#conetnConteiner h1', {
+        delay: 300,
+        duration: 2500,
+        viewFactor: 0.4,
+        reset: true,
+        distance: '500px',
+        origin: 'bottom',
+        easing: 'cubic-bezier(0.5, 0, 0, 1)',
+        opacity: 0
+    });
+}
