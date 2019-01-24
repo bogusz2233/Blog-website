@@ -8,8 +8,8 @@
     <style type="stylesheet.css">
     </style>
     <link rel="stylesheet" type="text/css" href="stylesheet.css?21">
+    <script src="https://unpkg.com/scrollreveal"></script>
     <script src="script.js?15"></script>
-   <link rel="icon" href="http://boguszluk.cba.pl/favicon.ico?v=2" />
 
 </head>
 
@@ -22,7 +22,16 @@
             <div class="desc">Strona poświecona moim projektom z elektroniki, programowania i fizyki...</div>
         </div>
     </div>
-
+    <script>
+     ScrollReveal().reveal('.topNavbar', {
+        delay: 1000,
+        duration: 1500,
+        scale: 0.1,
+        opacity: 0.1,
+        easing: 'ease-in'
+        
+    });
+    </script>
     <!--------------------------------  Pierwszy artykuł ------------------------------------------------------------>
     <div id="contentContainer">
         <script>createContentContainerView()</script>
