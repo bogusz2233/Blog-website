@@ -10,7 +10,7 @@ $desc-color-font: #707070;
   z-index: 1;
   @include makeShadowBox();
   margin-bottom: 40px;
-  @media (min-width:$bigScreenMin)
+  @media #{$screnNormalQuery}
   {
       position: fixed;
       top: 0;
@@ -23,7 +23,7 @@ $desc-color-font: #707070;
   max-width: 800px;
   margin: auto;
   padding: 0.5rem;
-  @media (min-width:$bigScreenMin)
+  @media #{$screnNormalQuery}
   {
       width: 85vw;
       display: flex;
@@ -42,7 +42,7 @@ $desc-color-font: #707070;
   padding: 0.4em;
   font-weight: bold;
   transition: 1s ease;
-  @media (min-width:$bigScreenMin)
+  @media #{$screnNormalQuery}
   {
     font-size: 2.5rem;
     width: 2em;
@@ -71,7 +71,7 @@ $desc-color-font: #707070;
       content: "Strona poświecona moim projektom z elektroniki, programowania i fizyki..."
     }
 
-    @media (min-width:$bigScreenMin)
+    @media #{$screnNormalQuery}
     {
       text-align: left;
       margin-left: 1rem;
