@@ -11,7 +11,7 @@ img {
 }
 
 body {
-  font-family: "Courier New", Courier, monospace;
+  font-family: "Montserrat Alternates", sans-serif;
   font-size: 16px;
   font-weight: lighter;
   background: #d1d1d1;
@@ -94,7 +94,7 @@ body {
   }
 }
 
-#contentContainer {
+.contentContainer {
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 100px;
@@ -103,7 +103,7 @@ body {
   max-width: 700px;
 }
 @media (orientation: portrait) and (min-width:600px), (orientation: landscape) and (min-height:600px) {
-  #contentContainer {
+  .contentContainer {
     width: 85vw;
     margin-top: 150px;
     margin-bottom: 200px;

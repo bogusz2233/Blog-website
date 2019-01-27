@@ -1,0 +1,16 @@
+$weatherBackground: #ebebeb;
+$weatherSearchIconColor: #4392aa;
+$weatherCurrentFontColor: #666;
+$bigScreenMin: 600px;
+$screnNormalQuery: "(orientation: portrait) and (min-width:#{$bigScreenMin}), (orientation: landscape) and (min-height:#{$bigScreenMin})";
+$screenMobileQuery: "(orientation: portrait) and (max-width:#{$bigScreenMin}), (orientation: landscape) and (max-height:#{$bigScreenMin})";
+
+*{
+    box-sizing: border-box;
+}
+
+@mixin makeShadowBox() {
+    box-shadow: 0 0 3px 2px rgba(0, 0, 0, 0.2), 0 0px 10px 2px rgba(0, 0, 0, 0.19);
+  }
+
+@import "weatherSearchWindow";

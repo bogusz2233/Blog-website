@@ -1,0 +1,105 @@
+.weatherSearchContainer
+{
+    background-color: $weatherBackground;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 1rem;
+    @include makeShadowBox();
+}
+
+.weatherSearchBar{
+    width: 100%;
+    display: flex;
+}
+.weatherSearchBelt{
+    background-color: #2d5992;
+    margin: auto;
+    align-content: center;
+    width: 100%;
+    padding: 0.7em;
+}
+
+h1{
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 2rem;
+    padding-bottom: 0.3em;
+}
+
+// Search weather place  =================================================
+.weatherSearchPlace{
+    flex-grow: 1;
+    flex-shrink: 0;
+    height: 100%;
+    align-self: center;
+    font-size: 1em;
+    padding: 0.45em;
+    padding-left: 0.4em;  
+}
+
+.weatherSearchIcon{
+    background-color: $weatherSearchIconColor;
+    flex-basis: 2.5em;
+    flex-grow: 0;
+    &:last-child{
+        margin-left: 0.3em;
+    }
+}
+
+// Current weather place  =================================================
+.currentWeatherContainer
+{
+    margin-top: 0.2em;
+    padding: 0.3em;
+    padding-bottom: 1.2em;
+    width: 100%;
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.currentWeatherView
+{
+    background: #dfdfdf;
+    flex-grow: 10;
+    flex-wrap: nowrap;
+    flex-flow: row nowrap;
+    margin: 0.05em;
+    height: 150px;
+    padding: 0.6em;
+    
+    &:first-child{
+        flex-basis: 8em;
+        flex-grow: 0;
+    }
+
+    &:nth-child(2) .currentWeatherPar
+    {
+        font-size: 1.6em;
+        padding: 0 0;
+        padding-left: 0.1em;
+    }
+    @media #{$screenMobileQuery}
+    {
+        &:last-child{
+            flex-basis: 100%;
+        }
+    }
+}
+
+h2
+{
+    font-size: 1.4rem;
+    letter-spacing: -0.025em;
+    font-weight: bold;
+    
+    color: $weatherCurrentFontColor;
+
+}
+.currentWeatherPar
+{
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: $weatherCurrentFontColor;
+    padding: 0.4em 0;
+}

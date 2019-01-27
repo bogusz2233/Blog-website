@@ -98,7 +98,7 @@ var addNewPost = (argTitle, argOverloopText, argImgSrc, argImgBackround, argText
     };
 
     // dodanie stworzonego bloku do kontenera
-    document.getElementById("contentContainer").prepend(dataBlock);
+    document.getElementsByClassName("contentContainer")[0].prepend(dataBlock);
 };
 
 // funkcja wywowyłana podczas błedu

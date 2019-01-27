@@ -5,24 +5,63 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Weather app</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="../stylesheet.css?15">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat+Alternates" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../css/main/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/weather/weather.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="weather-style.css?9">
     <script src="../script.js?17"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
     <script src="weather.js?5"></script>
 </head>
 
 <body>
-    <div class="topNavbar">
+    <header class="topNavbar">
         <div class="topNavbarContainer">
-            <div class="logo" onclick="goToMain(1)">ŁB</div>
-            <div class="desc">Strona poświecona moim projektom z elektroniki, programowania i fizyki...</div>
+            <div class="logo" onclick="goToMain(0)">
+                <p></p>
+            </div>
+            <div class="desc">
+                <p></p>
+            </div>
         </div>
-    </div>
+    </header>
     <!--------------------------------  Górna belka ------------------------------------------------------------>
-    <div id="conetnConteiner">
+
+    <section class="contentContainer">
+        <div class="weatherSearchContainer">
+            <div class=weatherSearchBelt>
+                <h1>Białystok</h1>
+                <div class="weatherSearchBar">
+                    <input type="text" class="weatherSearchPlace" placeholder="Szukaj" size="10" onkeypress="keyPressedText(event)">
+                    <img class="weatherSearchIcon" src="../img/search.png">
+                    <img class="weatherSearchIcon" src="../img/location_search.png">
+                </div>
+            </div>
+            <div class="currentWeatherContainer">
+                <div class="currentWeatherView">
+
+                </div>
+                <div class="currentWeatherView">
+                    <h2>Teraz</h2>
+                    <p class="currentWeatherPar">-2.2</p>
+                    <h2>Odczuwalna:</h2>
+                    <p class="currentWeatherPar">-8.9°C</p>
+                </div>
+                <div class="currentWeatherView">
+                    <h2>Opady:</h2>
+                    <p class="currentWeatherPar">Typ: snow</p>
+                    <p class="currentWeatherPar">Intensywność: 0.0003 mm/h</p>
+                    <p class="currentWeatherPar">Prawdopodobieństo: 1%</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="contentContainer">
+
+    </section>
+    <footer id="footerContainer"></footer>
+    <!-- <div id="conetnConteiner">
         <div class="weatherContainer">
             <div id="weatherBeltContainer">
                 <div id="placeId">Białystok</div>
@@ -45,7 +84,7 @@
         <script>
         weatherScrollAnim();
         </script>
-    </div>
+    </div> -->
 </body>
 
 </html>
