@@ -50,7 +50,7 @@ body {
   background: #006fff;
   color: #ffffff;
   margin: auto;
-  font-size: 2.5rem;
+  font-size: 1.8rem;
   width: 2em;
   height: 2em;
   border-radius: 100%;
@@ -58,6 +58,13 @@ body {
   padding: 0.4em;
   font-weight: bold;
   transition: 1s ease;
+}
+@media (min-width: 600px) {
+  .logo {
+    font-size: 2.5rem;
+    width: 2em;
+    height: 2em;
+  }
 }
 .logo :hover {
   font-size: 2.8rem;
@@ -72,8 +79,8 @@ body {
 .desc {
   height: 100%;
   align-self: center;
-  padding: 0.5rem;
   font-size: 1rem;
+  padding: 0.1em 0.5em;
   text-align: center;
   color: #707070;
 }
@@ -159,7 +166,7 @@ body {
 }
 .dataBlockDesc {
   font-size: 0.6rem;
-  padding: 10px;
+  padding: 1.5em;
   white-space: pre-wrap;
 }
 @media (min-width: 600px) {
