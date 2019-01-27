@@ -44,14 +44,15 @@ var addNewPost = (argTitle, argOverloopText, argImgSrc, argImgBackround, argText
     let overLoopText = document.createElement("div");
     let dataBlockImg = document.createElement("img");
     let dataBlockDesc = document.createElement("div");
-
+    let dataBlockParag = document.createElement("p");
     //class setup
     dataBlock.className = "dataBlock";
     dataBlockBar.className = "dataBlockBar"
     overLoop.className = "overlay";
     overLoopText.className = "text";
     dataBlockDesc.className = "desc";
-
+    dataBlockImg.className = "dataBlockImg";
+    dataBlockDesc.className = "dataBlockDesc";
     // main bloc setup
     dataBlock.appendChild(dataBlockBar);
     dataBlock.appendChild(overLoop);
@@ -67,6 +68,8 @@ var addNewPost = (argTitle, argOverloopText, argImgSrc, argImgBackround, argText
     overLoopText.textContent = argOverloopText;
     overLoop.appendChild(overLoopText);
 
+    //desc 
+    dataBlockDesc.appendChild(dataBlockParag);
     //img
     console.log(argImgSrc);
     if (argImgSrc === undefined) {
@@ -82,12 +85,11 @@ var addNewPost = (argTitle, argOverloopText, argImgSrc, argImgBackround, argText
 
 
     //desc 
-    if (argTextDesc != undefined) dataBlockDesc.textContent = argTextDesc;
+    if (argTextDesc != undefined) dataBlockParag.textContent = argTextDesc;
     else {
-        dataBlockDesc.textContent = noText;
+        dataBlockParag.textContent = noText;
         dataBlockDesc.style.color = "#bf432d";
     }
-    dataBlockDesc.style.whiteSpace = "pre-wrap";
 
     //dodanie linku:
     dataBlock.onclick = () => {
@@ -181,7 +183,7 @@ var createContet = (argWindowNO, argWindowCount, resolve, reject) => {
         addNewPost(jsonResponse.body.title, jsonResponse.body.secondTitle, jsonResponse.body.imgScr, jsonResponse.body.bckImgColor, jsonResponse.body.desc, jsonResponse.body.link);
         if (argWindowNO == argWindowCount - 1) {
 
-            addDataBlockAnimation();
+            //addDataBlockAnimation();
             resolve(console.log("ALL loaded!"));
         }
         else {

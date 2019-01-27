@@ -2,6 +2,8 @@ const SERVER_WEATHER_URL = "https://bogusz-blog.herokuapp.com/weather";
 const SERVER_QUERY_GET = "get";
 const SERVER_QUERY_PLACE = 'place';
 
+
+
 window.onload = () =>{
     getWeatherFromServer("Bogusz Stare 26","currently").then( (result) =>{
         setActualWeather(result);
@@ -282,10 +284,13 @@ var printWeatherDailyChart= (argResultdaily) =>{
                 }]
             }
         }
-    });
+    });w
 }
 
 var weatherScrollAnim = () => {
+    if((window.screen.width > 500 && (window.screen.width < window.screen.height))
+        ||(window.screen.height >500 && (window.screen.width > window.screen.height)) )
+    {
     ScrollReveal().reveal('.weatherContainer, #dailyChart', {
         delay: 300,
         duration: 2500,
@@ -317,4 +322,5 @@ var weatherScrollAnim = () => {
         easing: 'cubic-bezier(0.5, 0, 0, 1)',
         opacity: 0
     });
+    }
 }

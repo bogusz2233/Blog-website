@@ -1,0 +1,23 @@
+{
+  "name": "blog-website",
+  "version": "1.0.0",
+  "description": "This is my truly first website. I created that to learn how to write websites and to make a note of project that i working on.\r Link to the website: http://boguszluk.cba.pl.\r You can find here snake-game and in a future much more. Curently i'm working here on a weather app. Interesting here is that backend code and frontent code are on two diffrent servers. That one is a frontend source code.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bogusz2233/Blog-website.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bogusz2233/Blog-website/issues"
+  },
+  "homepage": "https://github.com/bogusz2233/Blog-website#readme",
+  "devDependencies": {
+    "lite-server": "^2.4.0"
+  }
+}

@@ -1,0 +1,17 @@
+#contentContainer
+{
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 100px;
+    width: 90vw;
+    min-height: 100vh;
+    max-width: $contenWidth;
+    @media (min-width:$bigScreenMin)
+    {
+        width: 85vw;
+        margin-top: 170px;
+        margin-bottom: 200px;
+    }
+}
+
+@import "dataBlock";

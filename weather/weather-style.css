@@ -137,15 +137,31 @@ body{
     display: flex;
 }
 
-#conetnConteiner
+
+@media screen and (orientation: portrait) {
+    #conetnConteiner
+    {
+        width: 80vw;
+        max-width: 800px;
+        min-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 100px;
+    }
+  }
+
+  @media screen and (orientation: landscape) {
+    #conetnConteiner
 {
-    width: 90vw;
+    width: 70vw;
     max-width: 800px;
     min-width: 300px;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 100px;
 }
+  }
+
 h1{
     margin-top: 15px;
     background-color: #ebebeb;

@@ -3,32 +3,34 @@
 
 <head>
     <meta charset="utf-8">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inżynieria, elektronika, fizyka, programowanie</title>
-    <style type="stylesheet.css">
-    </style>
-    <link rel="stylesheet" type="text/css" href="stylesheet.css?21">
-    <script src="https://unpkg.com/scrollreveal"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+  
     <script src="script.js?15"></script>
 
 </head>
 
 <body>
-
     <!--------------------------------  Górna belka ------------------------------------------------------------>
-    <div class="topNavbar">
+    <header class="topNavbar">
         <div class="topNavbarContainer">
-            <div class="logo" onclick="goToMain(0)">ŁB</div>
-            <div class="desc">Strona poświecona moim projektom z elektroniki, programowania i fizyki...</div>
+            <div class="logo" onclick="goToMain(0)">
+                <p></p>
+            </div>
+            <div class="desc">
+                <p></p>
+            </div>
         </div>
-    </div>
-    <script>
-   
-    </script>
+    </header>
+
+    <section id="contentContainer">
+            <script>createContentContainerView()</script>
+    </section>
+
+    <footer id="footerContainer"></footer>
     <!--------------------------------  Pierwszy artykuł ------------------------------------------------------------>
-    <div id="contentContainer">
-        <script>createContentContainerView()</script>
-    </div>
+
 </body>
 
 </html>
