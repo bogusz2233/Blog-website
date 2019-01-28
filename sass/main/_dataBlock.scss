@@ -25,19 +25,31 @@
    @media #{$screnNormalQuery}
     {
         height: 300px;
+        transition: 0.7s ease-in-out;
+        .dataBlock:hover &{
+            filter: blur(2px)
+        }
     }
+ 
 }
 
 /****************   Wyjeżdzający napis na zdjęcie  ***************************************/
 .overlay {
     position: absolute;
     overflow: hidden;
-    top: 0;
+    z-index: 1;
+    top: 47px;
     bottom: 100%;
     width: 100%;
     background-color: rgba(119, 119, 119, 0.401);
     transition: .5s ease;
     text-align: center;
+    @media #{$screnNormalQuery}
+    {
+        .dataBlock:hover &{
+                bottom: 0;
+        }
+    }
 }
 .text{
     position: relative;
@@ -46,12 +58,7 @@
     font-size: 50px;
     font-weight: bold;
 }
-    @media #{$screnNormalQuery}
-    {
-        .dataBlock:hover .overlay{
-        bottom: 0;
-        }
-    }
+
 
 .dataBlockDesc{
     font-size: 0.6rem;
@@ -59,6 +66,10 @@
     white-space: pre-wrap;
     @media #{$screnNormalQuery}
     {
+        transition: 0.7s ease-in-out;
         font-size: 0.8rem;
+        .dataBlock:hover &{
+            filter: blur(2px)
+        }
     }
 }
