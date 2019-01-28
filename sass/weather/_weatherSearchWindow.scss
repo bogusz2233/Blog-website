@@ -65,8 +65,7 @@ h1{
     flex-wrap: nowrap;
     flex-flow: row nowrap;
     margin: 0.05em;
-    height: 150px;
-    padding: 0.6em;
+    padding: 0.6em 1em;
     
     &:first-child{
         flex-basis: 8em;
@@ -83,6 +82,7 @@ h1{
     {
         &:last-child{
             flex-basis: 100%;
+            padding-left: 3em;
         }
     }
 }
@@ -92,9 +92,8 @@ h2
     font-size: 1.4rem;
     letter-spacing: -0.025em;
     font-weight: bold;
-    
     color: $weatherCurrentFontColor;
-
+    align-self: center;
 }
 .currentWeatherPar
 {
@@ -102,4 +101,5 @@ h2
     letter-spacing: 0.1em;
     color: $weatherCurrentFontColor;
     padding: 0.4em 0;
+    align-self: center;
 }

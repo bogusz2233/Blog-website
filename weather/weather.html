@@ -11,8 +11,7 @@
     <link rel="stylesheet" type="text/css" href="../css/weather/weather.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <script src="../script.js?17"></script>
-    <script src="https://unpkg.com/scrollreveal"></script>
-    <script src="weather.js?5"></script>
+    <script src="weather.js?6"></script>
 </head>
 
 <body>
@@ -31,10 +30,10 @@
     <section class="contentContainer">
         <div class="weatherSearchContainer">
             <div class=weatherSearchBelt>
-                <h1>Białystok</h1>
+                <h1 id="placeId">Białystok</h1>
                 <div class="weatherSearchBar">
                     <input type="text" class="weatherSearchPlace" placeholder="Szukaj" size="10" onkeypress="keyPressedText(event)">
-                    <img class="weatherSearchIcon" src="../img/search.png">
+                    <img class="weatherSearchIcon" onclick="getNewPlaceWeather()" src="../img/search.png">
                     <img class="weatherSearchIcon" src="../img/location_search.png">
                 </div>
             </div>
@@ -44,22 +43,30 @@
                 </div>
                 <div class="currentWeatherView">
                     <h2>Teraz</h2>
-                    <p class="currentWeatherPar">-2.2</p>
+                    <p class="currentWeatherPar" id="currentTemp">____°C</p>
                     <h2>Odczuwalna:</h2>
-                    <p class="currentWeatherPar">-8.9°C</p>
+                    <p class="currentWeatherPar" id="currentTempAparent">____°C</p>
                 </div>
                 <div class="currentWeatherView">
                     <h2>Opady:</h2>
-                    <p class="currentWeatherPar">Typ: snow</p>
-                    <p class="currentWeatherPar">Intensywność: 0.0003 mm/h</p>
-                    <p class="currentWeatherPar">Prawdopodobieństo: 1%</p>
+                    <p class="currentWeatherPar" id="precipType">Typ: snow</p>
+                    <p class="currentWeatherPar" id="precipInens">Intensywność: 0.0003 mm/h</p>
+                    <p class="currentWeatherPar" id="precipProb">Prawdopodobieństo: 1%</p>
                 </div>
             </div>
         </div>
-    </section>
-    <section class="contentContainer">
 
+        <div class="weatherChartContainer">
+            <h2>Temperatura godzinna</h2>
+            <canvas class="weatherChart" id="hourlyChart"></canvas>
+        </div>
+        <div class="weatherChartContainer">
+            <h2>Temperatura dzienna</h2>
+            <canvas class="weatherChart" id="dailyChart"></canvas>
+        </div>
+        
     </section>
+   
     <footer id="footerContainer"></footer>
     <!-- <div id="conetnConteiner">
         <div class="weatherContainer">
@@ -77,8 +84,7 @@
             </div>
 
         </div>
-        <h1>Temperatura godzinna</h1>
-        <canvas class="weatherChart" id="hourlyChart"></canvas>
+        
         <h1>Temperatura dzienna</h1>
         <canvas class="weatherChart" id="dailyChart"></canvas>
         <script>

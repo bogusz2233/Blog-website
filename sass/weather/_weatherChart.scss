@@ -1,0 +1,27 @@
+.weatherChart{
+    width: 100%;
+    min-height: 200px;
+    margin: 0.2em 0.2em;
+}
+.weatherChartContainer
+{
+    @include makeShadowBox();
+    background-color: #ebebeb;
+    width: 100%;
+    min-height: 200px;
+    margin-top: 1.5em;
+
+    h2{
+        text-align: center;
+        font-size: 1.2rem;
+        padding: 0.4em;
+        background-color: #2d5992;
+        text-transform: uppercase;
+        color: #ebebeb;
+        font-weight: bold;
+        @media #{$screnNormalQuery}
+        {
+            font-size: 1.8rem;
+        }
+    }
+}

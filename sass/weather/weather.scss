@@ -16,3 +16,4 @@ $screenMobileQuery: "(orientation: portrait) and (max-width:#{$bigScreenMin}), (
   }
 
 @import "weatherSearchWindow";
+@import "weatherChart"

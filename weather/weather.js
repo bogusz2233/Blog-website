@@ -5,14 +5,17 @@ const SERVER_QUERY_PLACE = 'place';
 
 
 window.onload = () =>{
-    getWeatherFromServer("Bogusz Stare 26","currently").then( (result) =>{
+    console.log("window.onload");
+    getWeatherFromServer("Białystok","currently").then( (result) =>{
+        console.log("Białystok","currently");
         setActualWeather(result);
         setApparentTemp(result);
         setPrecip(result);
-        return getWeatherFromServer("Bogusz Stare 26","hourly");
+        return getWeatherFromServer("Białystok","hourly");
     }).then( (result) =>{
+        console.log("Białystok","hourly");
         printWeatherChart(result.hourly);
-        return getWeatherFromServer("Bogusz Stare 26","daily");
+        return getWeatherFromServer("Białystok","daily");
     }).then( (result) =>{
         printWeatherDailyChart(result.daily);
     })
@@ -24,56 +27,36 @@ window.onload = () =>{
 
 var setActualWeather = (argJsonDataWeather) =>
 {
-    var container = createNewCurrentWeatherContainer();
-    container.children[0].textContent = "Teraz:";
+    var currentTemp = document.getElementById('currentTemp'); 
     var celsiusNow = converFahrToCels(argJsonDataWeather.currently.temperature);
-    container.children[1].textContent =`${celsiusNow}°C`;
+    currentTemp.textContent =`${celsiusNow}°C`;
 }
 
 var setApparentTemp = (argJsonDataWeather) =>{
-  
-    var container = createNewCurrentWeatherContainer();
-    container.children[0].textContent = "Odczuwalna:";
+
+    var currentTempAparent = document.getElementById('currentTempAparent'); 
     var celsiusNow = converFahrToCels(argJsonDataWeather.currently.apparentTemperature);
-    container.children[1].textContent =`${celsiusNow}°C`;
+   
+    currentTempAparent.textContent =`${celsiusNow}°C`;
 }
 
 var setPrecip  = (argJsonDataWeather) =>{
 
-    var tempPrecipType;
+    var precipType = document.getElementById("precipType");
+    var precipInens = document.getElementById('precipInens');
+    var precipProb = document.getElementById('precipProb');
 
-    var container = document.getElementById("currentWeatherContainer");
-    var viewDiv = document.createElement("div");
-    var precipText = document.createElement("div");
-    var precipType = document.createElement("div");
-    var precipInens = document.createElement("div");
-    var precipProb = document.createElement("div");
-
-    var viewDiv = document.createElement("div");
-
-
-    viewDiv.className = "celsiusView";
-    precipText.className =  "celsiusText";
-    precipType.className =  "precipText";
-    precipInens.className =  "precipText";
-    precipProb.className =  "precipText";
-
-    precipText.textContent = "Opady:";
     if(argJsonDataWeather.currently.precipType == undefined){
-        precipType.textContent = "Typ: brak";
+
+            precipType.textContent = "Typ: brak";
+    }else{
+
+        precipType.textContent = "Typ: " + argJsonDataWeather.currently.precipType;     
     }
-    else{
-        precipType.textContent = "Typ: " + argJsonDataWeather.currently.precipType;
-    }
-   
+
     precipInens.textContent = "Intensywność: " + argJsonDataWeather.currently.precipIntensity + " mm/h";
     precipProb.textContent ="Prawdopodobieństo: " + (argJsonDataWeather.currently.precipProbability *100).toFixed(0) + "%";
 
-    viewDiv.appendChild(precipText);
-    viewDiv.appendChild(precipType);
-    viewDiv.appendChild(precipInens);
-    viewDiv.appendChild(precipProb);
-    container.appendChild(viewDiv);
 };
 
 var createNewCurrentWeatherContainer = () =>
@@ -110,17 +93,13 @@ var getWeatherFromServer = (argPlace, argGetType) =>{
 }
 
 var getNewPlaceWeather = () =>{
-    var placeToSearch = document.getElementById("placeToSearch");
+    var placeToSearch = document.getElementsByClassName("weatherSearchPlace")[0];
     var location = placeToSearch.value;
 
     if(location.length == 0){
         placeToSearch.placeholder = "Wpisz nazwe miejscowości"
     }else{
         getWeatherFromServer(location,"currently").then( (result) =>{
-            var myNode = document.getElementById("currentWeatherContainer");
-            while (myNode.firstChild) {
-                myNode.removeChild(myNode.firstChild);
-            }
             setActualWeather(result);
             setApparentTemp(result);
             setPrecip(result);
@@ -182,6 +161,34 @@ var printWeatherChartTest = () => {
 }
 
 var printWeatherChart= (argResultHourly) =>{
+
+    var xAxesLabelSize=5;
+    var yAxesLavelSize=7;
+    var legendLabels=7;
+    if(window.screen.availWidth > 750)
+    {
+        xAxesLabelSize = 12;
+        yAxesLavelSize = 14;
+        legendLabels=16;
+    }
+    else if(window.screen.availWidth > 620)
+    {
+        xAxesLabelSize = 10;
+        yAxesLavelSize = 12;
+        legendLabels=14;
+    }
+    else if(window.screen.availWidth > 430)
+    {
+        xAxesLabelSize = 8;
+        legendLabels=10;
+        yAxesLavelSize = 9;
+    }
+    else
+    {
+        legendLabels=8;
+        xAxesLabelSize = 5;
+        yAxesLavelSize = 7;
+    }
     var xValue, yValue;
     xValue = new Array();
     yValue = new Array();
@@ -193,7 +200,6 @@ var printWeatherChart= (argResultHourly) =>{
     {
         let timeResult = new Date(argResultHourly[i].time * 1000);
         let timeString = `${timeResult.getHours()}:${timeResult.getMinutes()}0`;
-        console.log(timeString);
         xValue.push(timeString);
     }
     var charContex = document.getElementById("hourlyChart").getContext('2d');
@@ -215,18 +221,62 @@ var printWeatherChart= (argResultHourly) =>{
             }]
         },
         options: {
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontSize: legendLabels,
+                }
+            },
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero:true
+                        beginAtZero: true,
+                        fontSize: yAxesLavelSize
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                        fontSize: xAxesLabelSize,
+                        padding: 5,
+                        maxRotation: 0
                     }
                 }]
             }
         }
     });
+    console.log(myChart.config);
 }
 
 var printWeatherDailyChart= (argResultdaily) =>{
+
+    var xAxesLabelSize=5;
+    var yAxesLavelSize=7;
+    var legendLabels=7;
+    if(window.screen.availWidth > 750)
+    {
+        xAxesLabelSize = 12;
+        yAxesLavelSize = 14;
+        legendLabels=16;
+    }
+    else if(window.screen.availWidth > 620)
+    {
+        xAxesLabelSize = 10;
+        yAxesLavelSize = 12;
+        legendLabels=12;
+    }
+    else if(window.screen.availWidth > 430)
+    {
+        xAxesLabelSize = 7;
+        legendLabels=9;
+        yAxesLavelSize = 9;
+    }
+    else
+    {
+        legendLabels=6;
+        xAxesLabelSize = 4;
+        yAxesLavelSize = 6;
+    }
     var xValue, maxValue, minValue;
     xValue = new Array();
     maxValue = new Array();
@@ -276,15 +326,31 @@ var printWeatherDailyChart= (argResultdaily) =>{
             }]
         },
         options: {
+            legend: {
+                labels: {
+                    // This more specific font property overrides the global property
+                    fontSize: legendLabels,
+                    boxWidth: 20
+                }
+            },
             scales: {
                 yAxes: [{
                     ticks: {
-                        beginAtZero:true
+                        beginAtZero: true,
+                        fontSize: yAxesLavelSize
+                    }
+                }],
+                xAxes: [{
+                    ticks: {
+                        beginAtZero:true,
+                        fontSize: xAxesLabelSize,
+                        padding: 5,
+                        maxRotation: 0
                     }
                 }]
             }
         }
-    });w
+    });
 }
 
 var weatherScrollAnim = () => {

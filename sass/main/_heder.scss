@@ -41,19 +41,22 @@ $desc-color-font: #707070;
   text-align: center;
   padding: 0.4em;
   font-weight: bold;
-  transition: 1s ease;
+  :hover{
+    font-size: 1.9rem;
+    padding: -1em;
+    cursor: pointer;
+    color: #f1f1f1;
+  }
   @media #{$screnNormalQuery}
   {
+    :hover{
+      font-size: 2.7rem;
+    }
     font-size: 2.5rem;
     width: 2em;
     height: 2em;
   }
-  :hover{
-    font-size: 2.8rem;
-    padding: -0.4em;
-    cursor: pointer;
-    color: #e9e9e9;
-  }
+ 
 
   p::after{
     content: "ŁB";

@@ -110,12 +110,7 @@ var onImageError = (argDataImg) => {
 // Skrypt służący do tego by cofać sie do głównej stron
 // arg: timeToBack - liczba gałęzi o ile mamy sie cofnąć w folderach
 var goToMain = (timeToBack) => {
-    var pathString = "";
-    for (var i = 0; i < timeToBack; i++) {
-        pathString += "../"
-    }
-    pathString += "index.html"
-    location.href = pathString;
+    location.href = "/";
 }
 
 // function to check how many content are in base 
