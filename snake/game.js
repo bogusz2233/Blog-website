@@ -475,6 +475,31 @@ function keyPressFunction(e) {
     }
 }
 
+var arowClicked = (argDir) =>{
+    if(gameOver)
+    {
+        gameReset();
+    }
+    if (!keyPressedFlag) {
+        if (!gameOver && !gamePause && argDir == "right" && !(scores > 0 && playerDir == PLAYER_DIR_LEFT)) {
+            playerDir = PLAYER_DIR_RIGTH;
+            keyPressedFlag = true;
+        }
+        else if (!gameOver && !gamePause && argDir == "left" && !(scores > 0 && playerDir == PLAYER_DIR_RIGTH)) {
+            playerDir = PLAYER_DIR_LEFT;
+            keyPressedFlag = true;
+        }
+        else if (!gameOver && !gamePause && argDir == "up" && !(scores > 0 && playerDir == PLAYER_DIR_DOWN)) {
+            playerDir = PLAYER_DIR_UP;
+            keyPressedFlag = true;
+        }
+        else if (!gameOver && !gamePause && argDir == "down" && !(scores > 0 && playerDir == PLAYER_DIR_UP)) {
+            playerDir = PLAYER_DIR_DOWN;
+            keyPressedFlag = true;
+        }
+    }
+};
+
 // resetowanie rozgrywki:
 function gameReset() {
     /*
