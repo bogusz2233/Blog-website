@@ -28,7 +28,7 @@ body {
   overflow: hidden;
   margin-bottom: 40px;
 }
-@media (orientation: portrait) and (min-width:600px), (orientation: landscape) and (min-height:600px) {
+@media (orientation: portrait) and (min-width:600px), (orientation: landscape) and (min-height:450px) {
   .topNavbar {
     position: fixed;
     top: 0;
@@ -41,10 +41,17 @@ body {
   margin: auto;
   padding: 0.5rem;
 }
-@media (orientation: portrait) and (min-width:600px), (orientation: landscape) and (min-height:600px) {
+@media (orientation: portrait) and (min-width:600px), (orientation: landscape) and (min-height:450px) {
   .topNavbarContainer {
     width: 85vw;
     display: flex;
+  }
+}
+@media (orientation: landscape) {
+  .topNavbarContainer {
+    display: flex;
+    justify-content: center;
+    padding: 0.5em 2em;
   }
 }
 
@@ -66,7 +73,7 @@ body {
   cursor: pointer;
   color: #f1f1f1;
 }
-@media (orientation: portrait) and (min-width:600px), (orientation: landscape) and (min-height:600px) {
+@media (orientation: portrait) and (min-width:600px), (orientation: landscape) and (min-height:450px) {
   .logo {
     font-size: 2.5rem;
     width: 2em;
@@ -91,7 +98,13 @@ body {
 .desc p::after {
   content: "Strona poświecona moim projektom z elektroniki, programowania i fizyki...";
 }
-@media (orientation: portrait) and (min-width:600px), (orientation: landscape) and (min-height:600px) {
+@media (orientation: portrait) and (min-width:600px), (orientation: landscape) and (min-height:450px) {
+  .desc {
+    text-align: left;
+    margin-left: 1rem;
+  }
+}
+@media (orientation: landscape) {
   .desc {
     text-align: left;
     margin-left: 1rem;
@@ -106,7 +119,7 @@ body {
   min-height: 100vh;
   max-width: 700px;
 }
-@media (orientation: portrait) and (min-width:600px), (orientation: landscape) and (min-height:600px) {
+@media (orientation: portrait) and (min-width:600px), (orientation: landscape) and (min-height:450px) {
   .contentContainer {
     width: 85vw;
     margin-top: 150px;
@@ -129,6 +142,7 @@ body {
   text-align: center;
   color: #ffffff;
   padding: 8px;
+  width: 100%;
 }
 
 .dataBlockImg {
@@ -139,7 +153,7 @@ body {
   background-size: cover;
   transition: 0.6s ease;
 }
-@media (orientation: portrait) and (min-width:600px), (orientation: landscape) and (min-height:600px) {
+@media (orientation: portrait) and (min-width:600px), (orientation: landscape) and (min-height:450px) {
   .dataBlockImg {
     height: 300px;
     transition: 0.7s ease-in-out;
@@ -161,7 +175,7 @@ body {
   transition: 0.5s ease;
   text-align: center;
 }
-@media (orientation: portrait) and (min-width:600px), (orientation: landscape) and (min-height:600px) {
+@media (orientation: portrait) and (min-width:600px), (orientation: landscape) and (min-height:450px) {
   .dataBlock:hover .overlay {
     bottom: 0;
   }
@@ -180,7 +194,7 @@ body {
   padding: 1.5em;
   white-space: pre-wrap;
 }
-@media (orientation: portrait) and (min-width:600px), (orientation: landscape) and (min-height:600px) {
+@media (orientation: portrait) and (min-width:600px), (orientation: landscape) and (min-height:450px) {
   .dataBlockDesc {
     transition: 0.7s ease-in-out;
     font-size: 0.8rem;

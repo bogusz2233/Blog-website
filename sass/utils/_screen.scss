@@ -1,0 +1,3 @@
+$bigScreenMin: 600px;
+$bigScreenLandMin: 450px;
+$screnNormalQuery: "(orientation: portrait) and (min-width:#{$bigScreenMin}), (orientation: landscape) and (min-height:#{$bigScreenLandMin})";

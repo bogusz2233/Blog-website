@@ -1,8 +1,6 @@
 $background-color: #d1d1d1;
-$bigScreenMin: 600px;
 $contenWidth: 700px;
 $dataBlockColor: #ebebeb;
-$screnNormalQuery: "(orientation: portrait) and (min-width:#{$bigScreenMin}), (orientation: landscape) and (min-height:#{$bigScreenMin})";
 
 *{
     
@@ -31,7 +29,7 @@ body
     overflow: hidden;
   }
 
-
+@import "../utils/screen";
 @import "heder";
 @import "contentSection";
 @import "footer";

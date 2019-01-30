@@ -28,6 +28,12 @@ $desc-color-font: #707070;
       width: 85vw;
       display: flex;
   }
+  @media (orientation: landscape)
+  {
+    display: flex;
+    justify-content: center;
+    padding: 0.5em 2em
+  }
 }
 .logo
 {
@@ -75,6 +81,11 @@ $desc-color-font: #707070;
     }
 
     @media #{$screnNormalQuery}
+    {
+      text-align: left;
+      margin-left: 1rem;
+    }
+    @media (orientation: landscape)
     {
       text-align: left;
       margin-left: 1rem;

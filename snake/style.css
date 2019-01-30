@@ -7,8 +7,13 @@
     margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
-    width: 600px;
-    height: 400px;
+}
+@media (max-width: 640px)
+{
+    #canvasId
+    {
+        width: 360px;
+    }
 }
 .dataBlock
 {

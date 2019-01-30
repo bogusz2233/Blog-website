@@ -7,44 +7,52 @@
     <title>Snake game</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     </style>
-    <link rel="stylesheet" type="text/css" href="../stylesheet.css?14">
+    <link rel="stylesheet" type="text/css" href="../css/main/style.css">
     <link rel="stylesheet" type="text/css" href="style.css?19">
+    <link rel="stylesheet" type="text/css" href="../css/snake/snake.css">
     <script src="../script.js?15"></script>
-    <script type="text/javascript" src="game.js?15"></script>
+    <script type="text/javascript" src="game.js?16"></script>
 </head>
 
 <body onkeypress="keyPressFunction(event)">
 
     <!--------------------------------  Górna belka ------------------------------------------------------------>
-    <div class="topNavbar">
-        <div class="topNavbarContainer" onclick="goToMain(1)">
-            <div class="logo" onclick="goToMain(1)">ŁB</div>
-            <div class="desc">Strona poświecona moim projektom z elektroniki, programowania i fizyki...</div>
+    <header class="topNavbar">
+        <div class="topNavbarContainer">
+            <div class="logo" onclick="goToMain(0)">
+                <p></p>
+            </div>
+            <div class="desc">
+                <p></p>
+            </div>
         </div>
-    </div>
+    </header>
 
     <!--------------------------------  Treść strony ------------------------------------------------------------>
-    <div id="contentContainer">
-        <div class="dataBlock">
-            <div class="dataBlockBar">
-                <h2>Snake - game</h2>
-            </div>
+    <section class="contentContainer">
+        <div class="dataBlock dataBlock--game">
 
-            <div id="pointsPlace">
-                <div>
-                    <p class="valuePlace" id="timeValue">Time: 0</p>
-                </div>
-                <div>
-                    <p class="valuePlace" id="scoreValue">Punkty: 0</p>
-                </div>
+            <h2 class="dataBlockBar">Snake - game</h2>
+
+            <p class="windowGameText windowGameText--margin" id="timeValue">Time: 0</p>
+            <p class="windowGameText" id="scoreValue">Punkty: 0</p>
+
+            
+            <div class="windowGame">
+                    <p class="arrow arrow--up"><</p>
+                    <p class="arrow arrow--down"><</p>
+                    <p class="arrow arrow--left"><</p>
+                    <p class="arrow arrow--right"><</p>
+                    <canvas id="gameCanvans"></canvas>
             </div>
-            <canvas id="canvasId" height="400" width="600">
-            </canvas>
-            <div>
+            
+            <div id="manualGame" class="windowGameText">
                 <p>Sterowanie: <br> W\S\A\D - poruszanie <br> SPACE - zatrzymanie gry, R - reset gry</p>
             </div>
         </div>
-    </div>
+    </section>
+
+    <footer id="footerContainer"></footer>
 </body>
 
 </html>

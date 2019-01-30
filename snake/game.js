@@ -102,11 +102,23 @@ setInterval(gameLoop, 250);
 //funcja wywolywana przy starcie aplikacji
 window.onload = function setupScreen() {
 
-    canvansEl = document.getElementById("canvasId");
+    canvansEl = document.getElementById("gameCanvans");
     contex = canvansEl.getContext('2d');
-
-    CANVANS_WIDTH = canvansEl.clientWidth;
-    CANVANS_HEIGHT = canvansEl.clientHeight;
+    console.log(window.screen.availWidth);
+    if(window.screen.availWidth > 10)
+    {
+        canvansEl.width = 520;
+        canvansEl.height = 400;
+        CANVANS_WIDTH = 520;
+        CANVANS_HEIGHT = 400;
+    }
+    else
+    {
+        canvansEl.width = 360;
+        canvansEl.height = 320;
+        CANVANS_WIDTH = 360;
+        CANVANS_HEIGHT = 320;
+    }
     // ustawienie szerokosci wyswietlania
     backgroundReset();
     randomNewFruitPos();
