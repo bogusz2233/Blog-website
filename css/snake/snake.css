@@ -109,6 +109,9 @@
   padding-top: 0.5em;
   padding-bottom: 0.1em;
 }
+.windowGameText--waring {
+  color: #f36541;
+}
 @media (orientation: portrait) and (min-width:600px), (orientation: landscape) and (min-height:450px) {
   .windowGameText {
     font-size: 1.2rem;

@@ -15,6 +15,11 @@
     font-size: 0.8rem;
     padding-top: 0.5em;
     padding-bottom: 0.1em;
+
+    &--waring{
+        color: #f36541;
+    }
+
     @media #{$screnNormalQuery}
     {
         font-size: 1.2rem;
