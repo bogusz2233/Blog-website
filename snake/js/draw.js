@@ -1,3 +1,4 @@
+//import {getPlayertPos} from "./logic";
 let canvansEl;
 let contex;
 

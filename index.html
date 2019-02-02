@@ -4,19 +4,24 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Inżynieria, elektronika, fizyka, programowanie</title>
     <link href="https://fonts.googleapis.com/css?family=Montserrat+Alternates" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/main/style.css">
-    <script src="script.js?15"></script>
-
+    <link rel="stylesheet" type="text/css" href="home/css/style.css">
+    <script src="script.js"></script>
+<script>
+function goToMain()
+{
+    location.href = "/";
+}
+</script>
 </head>
 
 <body>
     <!--------------------------------  Górna belka ------------------------------------------------------------>
     <header class="topNavbar">
         <div class="topNavbarContainer">
-            <div class="logo" onclick="goToMain(0)">
+            <div class="button logo" onclick="goToMain()">
                 <p></p>
             </div>
             <div class="desc">

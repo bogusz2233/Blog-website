@@ -109,7 +109,12 @@ var onImageError = (argDataImg) => {
 
 // Skrypt służący do tego by cofać sie do głównej stron
 // arg: timeToBack - liczba gałęzi o ile mamy sie cofnąć w folderach
-var goToMain = (timeToBack) => {
+// var goToMain = (timeToBack) => {
+//     location.href = "/";
+// }
+
+function goToMain()
+{
     location.href = "/";
 }
 

@@ -1,7 +1,9 @@
+import "../../home/css/style.css";
+import "../css/weather.css";
+
 const SERVER_WEATHER_URL = "https://bogusz-blog.herokuapp.com/weather";
 const SERVER_QUERY_GET = "get";
 const SERVER_QUERY_PLACE = 'place';
-
 
 
 window.onload = () =>{

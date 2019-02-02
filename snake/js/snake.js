@@ -1,6 +1,9 @@
+import '../../css/main/style.css';
+import '../../snake/style.css';
+import "../css/snake.css";
 import {keyPressedService, getLastDir} from "./move";
 import {getFruitPos, getPlayertPos, setupLogic} from "./logic";
-import {setupScreen, gameDraw, getCanvansSize} from "./draw"
+import {setupScreen, gameDraw, getCanvansSize} from "./draw";
 
 console.log("Lib loaded");
 

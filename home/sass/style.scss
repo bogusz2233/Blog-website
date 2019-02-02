@@ -29,7 +29,7 @@ body
     overflow: hidden;
   }
 
-@import "../utils/screen";
+@import "../../utils/sass/screen";
 @import "heder";
 @import "contentSection";
 @import "footer";

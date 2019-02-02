@@ -1,1 +1,0 @@
-Ogarn¹æ strone, rodzaj wyœwietlanego diva na stronach przenieœæ do oddzielnych plików a kontent do bazy danych i ³adowaæ dynamiczne
