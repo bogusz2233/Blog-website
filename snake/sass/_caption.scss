@@ -15,6 +15,7 @@
     font-size: 0.8rem;
     padding-top: 0.5em;
     padding-bottom: 0.1em;
+    text-align: center;
 
     &--waring{
         color: #f36541;
@@ -33,4 +34,9 @@
     {
         margin-right: 35%;
     }
+}
+
+.dataBlock--game
+{
+    background-color: #202020
 }

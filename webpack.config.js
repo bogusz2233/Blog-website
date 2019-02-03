@@ -6,9 +6,9 @@ const defaultRules = [
   {
     test: /\.scss$/,
     use: [
-        "style-loader", // creates style nodes from JS strings
-        "css-loader", // translates CSS into CommonJS
-        "sass-loader" // compiles Sass to CSS, using Node Sass by default
+      MiniCssExtractPlugin.loader,
+      'css-loader',
+      "sass-loader"
     ]
   },
   {
@@ -28,6 +28,17 @@ const defaultRules = [
     }
   }
 ];
+
+const defaultPlugins = [
+  new MiniCssExtractPlugin({
+  // Options similar to the same options in webpackOptions.output
+  // both options are optional
+  filename: 'style.css',
+  chunkFilename: 'style-chunk.css'
+}),
+new OptimizeCssAssetsPlugin(),
+];
+
 module.exports = [
   {
     entry: './snake/js/snake.js',
@@ -35,6 +46,7 @@ module.exports = [
       filename: 'snake-bundle.js',
       path: path.resolve(__dirname, 'snake'),
     },
+    plugins: defaultPlugins,
     module: {
       rules: defaultRules,
     }
@@ -45,42 +57,20 @@ module.exports = [
       filename: 'weather-bundle.js',
       path: path.resolve(__dirname, 'weather'),
     },
-    plugins: [
-      new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // both options are optional
-      filename: 'style.css',
-      chunkFilename: 'style-chunk.css'
-    }),
-    new OptimizeCssAssetsPlugin(),
-    ], 
+    plugins: defaultPlugins,
     module: {
-      rules: [
-        {
-          test: /\.scss$/,
-          use: [
-            MiniCssExtractPlugin.loader,
-            'css-loader',
-            "sass-loader"
-          ]
-        },
-        {
-          test: /\.css$/,
-          use: [
-              "style-loader", // creates style nodes from JS strings
-              "css-loader", // translates CSS into CommonJS
-          ]
-        },
-        {
-          test: /\.js$/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env']
-            }
-          }
-        }
-      ],
+      rules: defaultRules,
+    },
+  },
+  {
+    entry: ["./home/js/dataBlock.js", './home/js/home.js'],
+    output: {
+      filename: 'home-bundle.js',
+      path: path.resolve(__dirname, 'home'),
+    },
+    plugins: defaultPlugins,
+    module: {
+      rules: defaultRules,
     },
   }
 ];

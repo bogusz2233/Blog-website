@@ -44,8 +44,20 @@ h1{
     height: 2.5em;
     width: 2.5em;
     flex-grow: 0;
+    
+    @media #{$screnNormalQuery}
+    {
+        filter: saturate(40%) opacity(50%);
+        transition: 1s ease;
+    }
+
     &:last-child{
         margin-left: 0.3em;
+    }
+    
+    &:hover{
+        filter: saturate(100%);
+        cursor: pointer;
     }
 }
 

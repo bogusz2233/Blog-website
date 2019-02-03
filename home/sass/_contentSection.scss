@@ -7,6 +7,10 @@
     min-height: 100vh;
     max-width: $contenWidth;
 
+    @media (orientation: landscape)
+    {
+        width: 70vw;
+    }
     @media #{$screnNormalQuery}
     {
         width: 85vw;

@@ -1,6 +1,6 @@
 $logo-color: #006fff;
 $desc-color-font: #707070;
-
+$bigLogoSize: 2em;
 
 
 // HEADEAR ====================================
@@ -23,14 +23,14 @@ $desc-color-font: #707070;
   max-width: 800px;
   margin: auto;
   padding: 0.5rem;
+  display: flex;
+  flex-flow: row wrap;
   @media #{$screnNormalQuery}
   {
       width: 85vw;
-      display: flex;
   }
   @media (orientation: landscape)
   {
-    display: flex;
     justify-content: center;
     padding: 0.5em 2em
   }
@@ -41,37 +41,33 @@ $desc-color-font: #707070;
   color: #ffffff;
   margin: auto;
   font-size: 1.8rem;
-  width: 2em;
-  height: 2em;
   border-radius: 100%;
   text-align: center;
   padding: 0.4em;
   font-weight: bold;
-  
-  :hover{
-    font-size: 1.9rem;
-    padding: -1em;
-    cursor: pointer;
-    color: #f1f1f1;
-  }
+  text-decoration: none;
+  flex-grow: 0;
   @media #{$screnNormalQuery}
   {
-    :hover{
-      font-size: 2.7rem;
+    font-size: 2.4rem;
+    padding: 0.3em;
+    filter: saturate(40%) opacity(80%); 
+    transition: 1s ease;
+    &:hover{
+      filter: saturate(100%);
+      cursor: pointer;
     }
-    font-size: 2.5rem;
-    width: 2em;
-    height: 2em;
   }
- 
 
   p::after{
     content: "ŁB";
   }
 }
-
+ 
 .desc{
     height: 100%;
+    flex-basis: 100%;
+    flex-grow: 0;
     align-self: center;
     font-size: 1rem;
     padding:  0.1em 0.5em;
@@ -84,12 +80,16 @@ $desc-color-font: #707070;
     @media #{$screnNormalQuery}
     {
       text-align: left;
-      margin-left: 1rem;
+      flex-basis: 40%;
+      flex-grow: 1;
+      margin-left: 1em;
     }
     @media (orientation: landscape)
     {
+      flex-basis: 40%;
+      flex-grow: 1;
       text-align: left;
-      margin-left: 1rem;
+      margin-left: 0.5rem;
     }
   }
 

@@ -1,4 +1,4 @@
-import "../../home/sass/style.scss"
+import "../../home/sass/home.scss"
 import "../sass/weather.scss";
 
 //var Promise = require("bluebird");
@@ -7,6 +7,8 @@ import {Chart} from "chart.js";
 var Promise = require('es6-promise').Promise;
 //const 
 
+const DEBUG_FLAG = false;
+
 const SERVER_WEATHER_URL = "https://bogusz-blog.herokuapp.com/weather";
 const SERVER_QUERY_GET = "get";
 const SERVER_QUERY_PLACE = 'place';
@@ -14,39 +16,57 @@ const SERVER_QUERY_PLACE = 'place';
 
 window.onload = () =>{
     console.log("window.onload");
-    let argGetType = "currently";
-    let argPlace = "Bialystok";
-  
-    let url = `${SERVER_WEATHER_URL}?${SERVER_QUERY_GET}=${argGetType}&${SERVER_QUERY_PLACE}=${argPlace}`;
+    if(!DEBUG_FLAG)
+    {
+        loadNewWeatherView("Bialystok");
+    }
 
-    axiosGet(url)
+    document.getElementById("searchWeather").onclick = () =>{
+        let dataPass = document.getElementsByClassName("weatherSearchPlace")[0].value;
+        if(dataPass.length === 0)
+        {
+            alert("Musi wpisać jakąś nazwe miejscowości");
+        }
+        else
+        {
+            loadNewWeatherView(dataPass);
+        }
+    }
+};
+
+// document.getElementById("searchWeather").onclick = () =>{
+//     console.log("click"); 
+// };
+// document.getElementById("searchWeather").onClick = () =>{
+//     console.log("click");
+//     //loadNewWeatherView("Bialystok");
+// };
+
+const loadNewWeatherView = (argPlacaceName) =>{
+
+    let urlCur = `${SERVER_WEATHER_URL}?${SERVER_QUERY_GET}=currently&${SERVER_QUERY_PLACE}=${argPlacaceName}`;
+    let urlHour = `${SERVER_WEATHER_URL}?${SERVER_QUERY_GET}=hourly&${SERVER_QUERY_PLACE}=${argPlacaceName}`;
+    let urlDay = `${SERVER_WEATHER_URL}?${SERVER_QUERY_GET}=daily&${SERVER_QUERY_PLACE}=${argPlacaceName}`;
+
+    axiosGet(urlCur)
     .then((response) =>{
         var {data} = response;
-        console.log(data);
         setActualWeather(data.body);
         setApparentTemp(data.body);
         setPrecip(data.body);
-        argGetType= "hourly";
-        url = `${SERVER_WEATHER_URL}?${SERVER_QUERY_GET}=${argGetType}&${SERVER_QUERY_PLACE}=${argPlace}`;
-        return axiosGet(url);
+        return axiosGet(urlHour);
     })
     .then( (result) =>{
-            console.log("Białystok","hourly");
-            argGetType= "daily";
-            url = `${SERVER_WEATHER_URL}?${SERVER_QUERY_GET}=${argGetType}&${SERVER_QUERY_PLACE}=${argPlace}`;
             printWeatherChart(result.data.body);
-            return axiosGet(url);
+            return axiosGet(urlDay);
     })
     .then( (result) =>{
-        console.log("Białystok","daily");
         printWeatherDailyChart(result.data.body);
-        
     })
     .catch((error) =>{
         console.log(error);
     });
 }
-
 var setActualWeather = (argJsonDataWeather) =>
 {
     var currentTemp = document.getElementById('currentTemp'); 
