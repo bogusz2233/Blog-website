@@ -29,18 +29,20 @@ h1{
 
 // Search weather place  =================================================
 .weatherSearchPlace{
-    flex-grow: 1;
+    flex-grow: 10;
     flex-shrink: 0;
+    min-width: 10em;
     height: 100%;
     align-self: center;
     font-size: 1em;
-    padding: 0.45em;
+    padding: 0.6em;
     padding-left: 0.4em;  
 }
 
 .weatherSearchIcon{
     background-color: $weatherSearchIconColor;
-    flex-basis: 2.5em;
+    height: 2.5em;
+    width: 2.5em;
     flex-grow: 0;
     &:last-child{
         margin-left: 0.3em;

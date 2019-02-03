@@ -1,5 +1,11 @@
-import "../../home/css/style.css";
-import "../css/weather.css";
+import "../../home/sass/style.scss"
+import "../sass/weather.scss";
+
+//var Promise = require("bluebird");
+import {get as axiosGet} from "axios";
+import {Chart} from "chart.js";
+var Promise = require('es6-promise').Promise;
+//const 
 
 const SERVER_WEATHER_URL = "https://bogusz-blog.herokuapp.com/weather";
 const SERVER_QUERY_GET = "get";
@@ -8,36 +14,50 @@ const SERVER_QUERY_PLACE = 'place';
 
 window.onload = () =>{
     console.log("window.onload");
-    getWeatherFromServer("Białystok","currently").then( (result) =>{
-        console.log("Białystok","currently");
-        setActualWeather(result);
-        setApparentTemp(result);
-        setPrecip(result);
-        return getWeatherFromServer("Białystok","hourly");
-    }).then( (result) =>{
-        console.log("Białystok","hourly");
-        printWeatherChart(result.hourly);
-        return getWeatherFromServer("Białystok","daily");
-    }).then( (result) =>{
-        printWeatherDailyChart(result.daily);
-    })
-    .catch( (errorMes) =>{
-        JsonDataWeather = {};
-    });
+    let argGetType = "currently";
+    let argPlace = "Bialystok";
+  
+    let url = `${SERVER_WEATHER_URL}?${SERVER_QUERY_GET}=${argGetType}&${SERVER_QUERY_PLACE}=${argPlace}`;
 
+    axiosGet(url)
+    .then((response) =>{
+        var {data} = response;
+        console.log(data);
+        setActualWeather(data.body);
+        setApparentTemp(data.body);
+        setPrecip(data.body);
+        argGetType= "hourly";
+        url = `${SERVER_WEATHER_URL}?${SERVER_QUERY_GET}=${argGetType}&${SERVER_QUERY_PLACE}=${argPlace}`;
+        return axiosGet(url);
+    })
+    .then( (result) =>{
+            console.log("Białystok","hourly");
+            argGetType= "daily";
+            url = `${SERVER_WEATHER_URL}?${SERVER_QUERY_GET}=${argGetType}&${SERVER_QUERY_PLACE}=${argPlace}`;
+            printWeatherChart(result.data.body);
+            return axiosGet(url);
+    })
+    .then( (result) =>{
+        console.log("Białystok","daily");
+        printWeatherDailyChart(result.data.body);
+        
+    })
+    .catch((error) =>{
+        console.log(error);
+    });
 }
 
 var setActualWeather = (argJsonDataWeather) =>
 {
     var currentTemp = document.getElementById('currentTemp'); 
-    var celsiusNow = converFahrToCels(argJsonDataWeather.currently.temperature);
+    var celsiusNow = converFahrToCels(argJsonDataWeather.temperature);
     currentTemp.textContent =`${celsiusNow}°C`;
 }
 
 var setApparentTemp = (argJsonDataWeather) =>{
 
     var currentTempAparent = document.getElementById('currentTempAparent'); 
-    var celsiusNow = converFahrToCels(argJsonDataWeather.currently.apparentTemperature);
+    var celsiusNow = converFahrToCels(argJsonDataWeather.apparentTemperature);
    
     currentTempAparent.textContent =`${celsiusNow}°C`;
 }
@@ -48,16 +68,16 @@ var setPrecip  = (argJsonDataWeather) =>{
     var precipInens = document.getElementById('precipInens');
     var precipProb = document.getElementById('precipProb');
 
-    if(argJsonDataWeather.currently.precipType == undefined){
+    if(argJsonDataWeather.precipType == undefined){
 
             precipType.textContent = "Typ: brak";
     }else{
 
-        precipType.textContent = "Typ: " + argJsonDataWeather.currently.precipType;     
+        precipType.textContent = "Typ: " + argJsonDataWeather.precipType;     
     }
 
-    precipInens.textContent = "Intensywność: " + argJsonDataWeather.currently.precipIntensity + " mm/h";
-    precipProb.textContent ="Prawdopodobieństo: " + (argJsonDataWeather.currently.precipProbability *100).toFixed(0) + "%";
+    precipInens.textContent = "Intensywność: " + argJsonDataWeather.precipIntensity + " mm/h";
+    precipProb.textContent ="Prawdopodobieństo: " + (argJsonDataWeather.precipProbability *100).toFixed(0) + "%";
 
 };
 
@@ -80,19 +100,28 @@ var createNewCurrentWeatherContainer = () =>
     return celsiusDiv;
 }
 var getWeatherFromServer = (argPlace, argGetType) =>{
+    let url = `${SERVER_WEATHER_URL}?${SERVER_QUERY_GET}=${argGetType}&${SERVER_QUERY_PLACE}=${argPlace}`;
+    console.log(url);
     return new Promise((resolve, reject) => {
-        const xmlhttp = new XMLHttpRequest();
-        let url = `${SERVER_WEATHER_URL}?${SERVER_QUERY_GET}=${argGetType}&${SERVER_QUERY_PLACE}=${argPlace}`;
+        if('ActiveXObject' in window){
+            return new ActiveXObject('Msxml2.XMLHTTP');
+         }
+        let xmlhttp = new XMLHttpRequest();
+        xmlhttp.overrideMimeType("application/json");  
+       // xmlhttp.responseType = 'json';
+       
 
         xmlhttp.open("GET", url, true);
+        xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
         xmlhttp.onload = () => {
             var jsonResponse = JSON.parse(xmlhttp.responseText);
+         
             resolve(jsonResponse)
         };
         xmlhttp.onerror = () => reject(xmlhttp.statusText);
         xmlhttp.send();
     });
-}
+};
 
 var getNewPlaceWeather = () =>{
     var placeToSearch = document.getElementsByClassName("weatherSearchPlace")[0];
@@ -114,7 +143,7 @@ var getNewPlaceWeather = () =>{
             printWeatherDailyChart(result.daily);
         })
         .catch( (errorMes) =>{
-            JsonDataWeather = {};
+           // JsonDataWeather = {};
         });
     }
 };
