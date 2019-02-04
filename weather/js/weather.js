@@ -6,19 +6,66 @@ import {get as axiosGet} from "axios";
 import {Chart} from "chart.js";
 var Promise = require('es6-promise').Promise;
 //const 
-
-const DEBUG_FLAG = false;
-
 const SERVER_WEATHER_URL = "https://bogusz-blog.herokuapp.com/weather";
 const SERVER_QUERY_GET = "get";
 const SERVER_QUERY_PLACE = 'place';
-
+const CACHE_TIME_DELAY = 30 * 60 * 1000;    //<< Co 30 minut
 
 window.onload = () =>{
     console.log("window.onload");
-    if(!DEBUG_FLAG)
+    let lastTimeFetch = localStorage.getItem("weather-app-time");
+    let actualTime = new Date().getTime();
+
+    if(lastTimeFetch == undefined || actualTime - lastTimeFetch > CACHE_TIME_DELAY)
     {
-        loadNewWeatherView("Bialystok");
+        console.log("Poszlo zapytanie");
+        localStorage.setItem("weather-app-time",actualTime);
+
+        let urlCur = `${SERVER_WEATHER_URL}?${SERVER_QUERY_GET}=currently&${SERVER_QUERY_PLACE}=Bialystok`;
+        let urlHour = `${SERVER_WEATHER_URL}?${SERVER_QUERY_GET}=hourly&${SERVER_QUERY_PLACE}=Bialystok`;
+        let urlDay = `${SERVER_WEATHER_URL}?${SERVER_QUERY_GET}=daily&${SERVER_QUERY_PLACE}=Bialystok`;
+
+        axiosGet(urlCur)
+        .then((response) =>{
+
+            let {data : {body}} = response;
+            let StringData = JSON.stringify(body);
+            localStorage.setItem("weather-app-current",StringData);
+            setActualWeather(body);
+            setApparentTemp(body);
+            setPrecip(body);
+            return axiosGet(urlHour);
+        })
+        .then( (result) =>{
+            let {data : {body}} = result;
+            let StringData = JSON.stringify(body);
+            localStorage.setItem("weather-app-hourly",StringData);
+            printWeatherChart(body);
+            return axiosGet(urlDay);
+        })
+        .then( (result) =>{
+            let {data : {body}} = result;
+            let StringData = JSON.stringify(body);
+            localStorage.setItem("weather-app-daily",StringData);
+            printWeatherDailyChart(body);
+        })
+        .catch((error) =>{
+            console.log(error);
+        });
+    }
+    else
+    {
+        console.log("Wczytano info z cache'a");
+        let bodyCurrent = JSON.parse(localStorage.getItem("weather-app-current"));
+        let bodyHourly = JSON.parse(localStorage.getItem("weather-app-hourly"));
+        let bodyDaily = JSON.parse(localStorage.getItem("weather-app-daily"));
+
+        setActualWeather(bodyCurrent);
+        setApparentTemp(bodyCurrent);
+        setPrecip(bodyCurrent);
+
+        printWeatherChart(bodyHourly);
+        printWeatherDailyChart(bodyDaily);
     }
 
     document.getElementById("searchWeather").onclick = () =>{

@@ -7,6 +7,7 @@ const SERVER_CONTETN_URL = "https://bogusz-blog.herokuapp.com/HomePageData";
 const SERVER_URL = "https://bogusz-blog.herokuapp.com";
 const CONTENT_COUNT_QUERY = "askForNumber"; // true/false
 const CONTENT_NUM_QUERY = "contentNumber";  // 1,2,3 ...
+const CACHE_TIME_DELAY = 30 * 60 * 1000;    //<< Co 30 minut
 
 const addNewPost = (argTitle, argOverloopText, argImgSrc, argImgBackround, argTextDesc, argLinkToPost) => {
     const noText = "(!) Nie można było wczytać tekstu lub został on nie dodany (!)";
@@ -125,28 +126,47 @@ const getConentCount = () => {
 const createContentContainerView = () => {
     let urlCount = `${SERVER_CONTETN_URL}?${CONTENT_COUNT_QUERY}=true`;
     console.log(axiosGet);
-    
-    axiosGet(urlCount)
-    .then((responseCount) =>{
-        let {data: {contentNumber}} = responseCount;
-        console.log("Odpowiedz:");
-        console.log(contentNumber);
+    let actualTime = new Date().getTime();
+    let lastTimeFetch = localStorage.getItem("dataBlock-time");
+    if(lastTimeFetch = undefined || actualTime - lastTimeFetch > CACHE_TIME_DELAY)
+    {
+        console.log("Poszlo zapytanie");
+        localStorage.setItem("dataBlock-time",actualTime);
 
-        for(let i=0; i<contentNumber; i++)
+        axiosGet(urlCount)
+        .then((responseCount) =>{
+            let {data: {contentNumber}} = responseCount;
+            localStorage.setItem("dataBlock-count",contentNumber);
+            
+            for(let i=0; i<contentNumber; i++)
+            {
+                let urlContent = `${SERVER_CONTETN_URL}?${CONTENT_NUM_QUERY}=${i}`;
+                axiosGet(urlContent)
+                .then(responseContent =>{
+                    let {data : {body}} = responseContent;
+                    let bodyString = JSON.stringify(body);
+                    localStorage.setItem(`dataBlock-data${i}`, bodyString);
+                    addNewPost(body.title, body.secondTitle, body.imgScr, body.bckImgColor, body.desc, body.link);
+                });
+            }
+        })
+        .catch((errorMes) =>{
+            console.log("Nie udalo sie wczytać konentu")
+        });
+    }
+    else{
+        console.log("Wczytuje z cache'a");
+        let count = localStorage.getItem("dataBlock-count");
+
+        for(let i=0; i<count; i++)
         {
-            let urlContent = `${SERVER_CONTETN_URL}?${CONTENT_NUM_QUERY}=${i}`;
-            axiosGet(urlContent)
-            .then(responseContent =>{
-                let {data : {body}} = responseContent;
-                console.log(body);
-                addNewPost(body.title, body.secondTitle, body.imgScr, body.bckImgColor, body.desc, body.link);
-            });
+            let bodyCached = JSON.parse(localStorage.getItem(`dataBlock-data${i}`));
+            if(bodyCached != undefined)
+            {
+                addNewPost(bodyCached.title, bodyCached.secondTitle, bodyCached.imgScr, bodyCached.bckImgColor, bodyCached.desc, bodyCached.link);
+            }
         }
-    })
-    .catch((errorMes) =>{
-        console.log("Nie udalo sie wczytać konentu")
-    })
-
+    }
     // getConentCount().then((resultCount) => {
     //     //console.log(resultCount);
     //     return loadAllContentWindow(resultCount);
