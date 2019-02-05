@@ -41,7 +41,9 @@ new OptimizeCssAssetsPlugin(),
 
 module.exports = [
   {
-    entry: './snake/js/snake.js',
+    entry: {
+      index: './snake/js/snake.js',
+    },
     output: {
       filename: 'snake-bundle.js',
       path: path.resolve(__dirname, 'snake'),
@@ -49,7 +51,7 @@ module.exports = [
     plugins: defaultPlugins,
     module: {
       rules: defaultRules,
-    }
+    },
   },
   {
     entry: './weather/js/weather.js',
@@ -72,7 +74,7 @@ module.exports = [
     module: {
       rules: defaultRules,
     },
-  }
+  },
 ];
 
 

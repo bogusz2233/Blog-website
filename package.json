@@ -8,6 +8,7 @@
     "localHost": "lite-server",
     "build": "npx webpack -p",
     "build-watch": "npx webpack --watch",
+    "dev-server": "webpack-dev-server --mode=development",
     "dev": "npm-run-all --parallel localHost build-watch"
   },
   "repository": {

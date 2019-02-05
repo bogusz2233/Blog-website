@@ -47,6 +47,7 @@ $bigLogoSize: 2em;
   font-weight: bold;
   text-decoration: none;
   flex-grow: 0;
+  -webkit-tap-highlight-color: transparent;
   @media #{$screnNormalQuery}
   {
     font-size: 2.4rem;

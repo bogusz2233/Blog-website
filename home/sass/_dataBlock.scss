@@ -5,10 +5,13 @@
     width: 100%;
     background: $dataBlockColor;
     position: relative;
+    
     &:hover{
         cursor: pointer;
     }
-
+    &:active{
+        outline: none; 
+    }
 }
 
 .dataBlockBar{
