@@ -29,11 +29,12 @@ window.onload = () =>{
         .then((response) =>{
 
             let {data : {body}} = response;
+            console.log(response.data);
             let StringData = JSON.stringify(body);
             localStorage.setItem("weather-app-current",StringData);
-            setActualWeather(body);
-            setApparentTemp(body);
-            setPrecip(body);
+            setActualWeather(body.currently);
+            setApparentTemp(body.currently);
+            setPrecip(body.currently);
             return axiosGet(urlHour);
         })
         .then( (result) =>{
@@ -60,9 +61,9 @@ window.onload = () =>{
         let bodyHourly = JSON.parse(localStorage.getItem("weather-app-hourly"));
         let bodyDaily = JSON.parse(localStorage.getItem("weather-app-daily"));
 
-        setActualWeather(bodyCurrent);
-        setApparentTemp(bodyCurrent);
-        setPrecip(bodyCurrent);
+        setActualWeather(bodyCurrent.currently);
+        setApparentTemp(bodyCurrent.currently);
+        setPrecip(bodyCurrent.currently);
 
         printWeatherChart(bodyHourly);
         printWeatherDailyChart(bodyDaily);
@@ -97,10 +98,11 @@ const loadNewWeatherView = (argPlacaceName) =>{
 
     axiosGet(urlCur)
     .then((response) =>{
-        var {data} = response;
-        setActualWeather(data.body);
-        setApparentTemp(data.body);
-        setPrecip(data.body);
+        var  {data : {body}} = response;
+        document.getElementById("placeId").textContent = body.formatted_address;
+        setActualWeather(body.currently);
+        setApparentTemp(body.currently);
+        setPrecip(body.currently);
         return axiosGet(urlHour);
     })
     .then( (result) =>{
