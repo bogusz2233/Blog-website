@@ -1,3 +1,7 @@
+import "../../home/sass/home.scss"
+import "../sass/snake.scss";
+//import "../style.css";
+
 var canvansEl;
 var contex;
 
@@ -97,7 +101,7 @@ var tail9 = new Image(40, 40);
 var tail10 = new Image(40, 40);
 
 // funkcje do przypiecia
-setInterval(gameLoop, 250);
+setInterval(gameLoop, 350);
 
 //funcja wywolywana przy starcie aplikacji
 window.onload = function setupScreen() {
@@ -139,6 +143,13 @@ window.onload = function setupScreen() {
     tail8.src = "img/tail8.png"
     tail9.src = "img/tail9.png"
     tail10.src = "img/tail10.png"
+    window.onkeypress = keyPressFunction;
+
+    //arowClicked
+    document.getElementsByClassName("arrow--up")[0].onclick = () =>{arowClicked("up")};
+    document.getElementsByClassName("arrow--down")[0].onclick = () =>{arowClicked("down")};
+    document.getElementsByClassName("arrow--left")[0].onclick = () =>{arowClicked("left")};
+    document.getElementsByClassName("arrow--right")[0].onclick = () =>{arowClicked("right")};
 }
 // game loop:
 function gameLoop() {

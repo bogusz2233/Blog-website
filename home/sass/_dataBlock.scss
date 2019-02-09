@@ -54,7 +54,8 @@
     bottom: 100%;
     width: 100%;
     background-color: rgba(119, 119, 119, 0.401);
-    transition: .5s ease;
+    transition: .7s ease;
+    transition-delay: 0.4s;
     text-align: center;
     @media #{$screnNormalQuery}
     {

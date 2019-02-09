@@ -16,6 +16,18 @@ var tail7 = new Image(40, 40);
 var tail8 = new Image(40, 40);
 var tail9 = new Image(40, 40);
 var tail10 = new Image(40, 40);
+var tailImg =
+[ 
+    new Image(40, 40),
+    new Image(40, 40),
+    new Image(40, 40),
+    new Image(40, 40),
+    new Image(40, 40),
+    new Image(40, 40),
+    new Image(40, 40),
+    new Image(40, 40),
+    new Image(40, 40),
+    new Image(40, 40) ];
 
 const drawSetup = () =>{
     HeadImgUp.src = "img/head4.png";
@@ -23,6 +35,10 @@ const drawSetup = () =>{
     HeadImgLeft.src = "img/head3.png";
     HeadImgRight.src = "img/head1.png";
     fruitImg.src = "img/fruit.png"
+    for(let i=0; i< 10; i++)
+    {
+        tailImg[i].src = `img/tail${i}.png`;
+    }
     tail1.src = "img/tail1.png"
     tail2.src = "img/tail2.png"
     tail3.src = "img/tail3.png"
@@ -45,7 +61,7 @@ const drawFruit = (argContex, {xPos, yPos}) =>{
     argContex.drawImage(fruitImg, xPos, yPos);
 };
 
-const drawPlayer = (argContex, {xPos, yPos, dir}) =>{
+const drawPlayer = (argContex, {xPos, yPos, dir, tails}) =>{
     var playerIMG; 
     if(dir === "UP")
     {
@@ -64,6 +80,11 @@ const drawPlayer = (argContex, {xPos, yPos, dir}) =>{
         playerIMG = HeadImgRight;
     }
     argContex.drawImage(playerIMG, xPos, yPos);
+
+    for(let i=0; i< tails.length; i++)
+    {
+        argContex.drawImage(tailImg[ tails[i].type ], tails[i].xPos, tails[i].yPos);
+    }
 };
 
 module.exports = {

@@ -40,9 +40,15 @@ $arrowSize: 4;
     margin-right: auto;
 
     width: 95%;
+    @media #{$screnNormalQuery}
+    {
+        
+        margin-left: 10%;
+        margin-right: 10%;
+    }
     @media (orientation: landscape) and (max-height: $bigScreenLandMin)
     {
-        height: 75vh;
+        height: 70vh;
         width: auto;
     }
 }

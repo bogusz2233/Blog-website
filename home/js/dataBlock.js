@@ -135,6 +135,7 @@ const createContentContainerView = () => {
 
         axiosGet(urlCount)
         .then((responseCount) =>{
+            document.getElementById("progressBarBlock").style.display = "none";
             let {data: {contentNumber}} = responseCount;
             localStorage.setItem("dataBlock-count",contentNumber);
             
@@ -155,6 +156,7 @@ const createContentContainerView = () => {
         });
     }
     else{
+        document.getElementById("progressBarBlock").style.display = "none";
         console.log("Wczytuje z cache'a");
         let count = localStorage.getItem("dataBlock-count");
 

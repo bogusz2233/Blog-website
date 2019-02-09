@@ -42,10 +42,10 @@ new OptimizeCssAssetsPlugin(),
 module.exports = [
   {
     entry: {
-      index: './snake/js/snake.js',
+      index: './snake/js/snake2.js',
     },
     output: {
-      filename: 'snake-bundle.js',
+      filename: 'snake2-bundle.js',
       path: path.resolve(__dirname, 'snake'),
     },
     plugins: defaultPlugins,

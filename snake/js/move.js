@@ -25,7 +25,6 @@ const keyPressedService = (argEvent) =>{
             lastDirKeyChose ="RIGHT";
             keyWasService = false;
         }
-        console.log(argEvent);
     }
 }
 

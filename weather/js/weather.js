@@ -4,7 +4,7 @@ import "../sass/weather.scss";
 //var Promise = require("bluebird");
 import {get as axiosGet} from "axios";
 import {Chart} from "chart.js";
-var Promise = require('es6-promise').Promise;
+const Promise = require('es6-promise').Promise;
 //const 
 const SERVER_WEATHER_URL = "https://bogusz-blog.herokuapp.com/weather";
 const SERVER_QUERY_GET = "get";
@@ -72,7 +72,7 @@ window.onload = () =>{
         let dataPass = document.getElementsByClassName("weatherSearchPlace")[0].value;
         if(dataPass.length === 0)
         {
-            alert("Musi wpisać jakąś nazwe miejscowości");
+            alert("Musisz wpisać jakąś nazwe miejscowości");
         }
         else
         {
